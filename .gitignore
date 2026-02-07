@@ -1,0 +1,123 @@
+# Gradle
+.gradle/
+build/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.jar
+*.aar
+
+# Android Studio
+.idea/
+.classpath
+.project
+.settings/
+*.iml
+*.iws
+*.ipr
+local.properties
+
+# Build artifacts
+bin/
+gen/
+out/
+
+# Gradle wrapper
+!gradle/wrapper/gradle-wrapper.jar
+
+# Proguard
+proguard/
+mapping.txt
+
+# Log files
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Llama models (too large)
+llama3.5/models/*.safetensors
+llama3.5/weights/*.safetensors
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Secrets
+.env
+.env.local
+secrets.json
+credentials.json
+
+# Test coverage
+coverage/
+.coverage
+htmlcov/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Caches
+.cache/
+*.cache
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# IDE specific
+.vscode/settings.json
+.idea/workspace.xml
+.idea/tasks.xml

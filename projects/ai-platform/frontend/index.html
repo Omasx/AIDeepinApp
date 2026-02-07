@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DePIN Cloud Platform - منصة الذكاء الاصطناعي السحابية</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شاشة التحميل -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="quantum-loader"></div>
+            <h2>جاري تحميل المنصة...</h2>
+            <p id="loading-status">تهيئة النظام</p>
+        </div>
+    </div>
+
+    <!-- الشريط العلوي -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🚀</span>
+            <span class="logo-text">AI DePIN Platform</span>
+        </div>
+        <div class="nav-links">
+            <a href="#dashboard" class="nav-link active" data-page="dashboard">لوحة التحكم</a>
+            <a href="#ai-agent" class="nav-link" data-page="ai-agent">الوكيل الذكي</a>
+            <a href="#terminal" class="nav-link" data-page="terminal">الترمينال</a>
+            <a href="#settings" class="nav-link" data-page="settings">الإعدادات</a>
+        </div>
+        <div class="user-info">
+            <span id="user-status">غير متصل</span>
+            <button id="logout-btn" class="btn-icon">🚪</button>
+        </div>
+    </nav>
+
+    <!-- صفحة تسجيل الدخول -->
+    <div id="login-page" class="page active">
+        <div class="login-container">
+            <div class="login-card">
+                <h1>🌟 مرحباً بك</h1>
+                <p>منصة الذكاء الاصطناعي السحابية المجانية 100%</p>
+                
+                <div class="form-group">
+                    <label>معرف الجهاز</label>
+                    <input type="text" id="device-id" readonly value="">
+                </div>
+                
+                <button id="login-btn" class="btn-primary">
+                    <span>دخول مجاني</span>
+                    <span class="btn-icon">→</span>
+                </button>
+                
+                <div class="features">
+                    <div class="feature">✅ مجاني تماماً</div>
+                    <div class="feature">⚡ سرعة فائقة</div>
+                    <div class="feature">🤖 ذكاء اصطناعي متقدم</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة التحكم -->
+    <div id="dashboard-page" class="page">
+        <div class="container">
+            <!-- بطاقات الإحصائيات -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">💾</div>
+                    <div class="stat-info">
+                        <h3>التخزين المستخدم</h3>
+                        <p id="storage-used">0 MB</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🚀</div>
+                    <div class="stat-info">
+                        <h3>المهام النشطة</h3>
+                        <p id="active-tasks">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-info">
+                        <h3>التكلفة</h3>
+                        <p>$0.00</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-info">
+                        <h3>زمن الاستجابة</h3>
+                        <p id="latency">0 ms</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم إعداد مفاتيح AI -->
+            <div class="section-card">
+                <h2>🔑 إعداد مفاتيح الذكاء الاصطناعي</h2>
+                
+                <div class="api-keys-grid">
+                    <div class="api-key-input">
+                        <label>OpenAI API Key</label>
+                        <input type="password" id="openai-key" placeholder="sk-...">
+                    </div>
+                    
+                    <div class="api-key-input">
+                        <label>Anthropic (Claude) API Key</label>
+                        <input type="password" id="anthropic-key" placeholder="sk-ant-...">
+                    </div>
+                    
+                    <div class="api-key-input">
+                        <label>Google AI (Gemini) API Key</label>
+                        <input type="password" id="google-key" placeholder="AIza...">
+                    </div>
+                    
+                    <div class="api-key-input">
+                        <label>DeepSeek API Key</label>
+                        <input type="password" id="deepseek-key" placeholder="sk-...">
+                    </div>
+                </div>
+                
+                <button id="sync-keys-btn" class="btn-primary btn-large">
+                    <span>🔄 مزامنة المفاتيح</span>
+                </button>
+                
+                <div id="sync-progress" class="progress-container hidden">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <p id="sync-status">جاري المزامنة...</p>
+                </div>
+            </div>
+
+            <!-- قسم الوكيل الذكي -->
+            <div class="section-card">
+                <h2>🤖 الوكيل الذكي (AI Agent)</h2>
+                
+                <div class="agent-status">
+                    <div class="status-indicator" id="agent-status">
+                        <span class="status-dot"></span>
+                        <span>غير نشط</span>
+                    </div>
+                </div>
+                
+                <div class="chat-container">
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="message bot-message">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-content">
+                                <p>مرحباً! أنا وكيلك الذكي. يمكنني:</p>
+                                <ul>
+                                    <li>🎮 تشغيل الألعاب تلقائياً</li>
+                                    <li>👁️ قراءة الشاشة والتفاعل معها</li>
+                                    <li>💻 كتابة وتطوير التطبيقات</li>
+                                    <li>🎯 تنفيذ المهام المعقدة</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <button id="voice-btn" class="btn-icon voice-btn">🎤</button>
+                        <input type="text" id="chat-input" placeholder="اكتب أمرك هنا...">
+                        <button id="send-btn" class="btn-primary">إرسال</button>
+                    </div>
+                </div>
+                
+                <!-- أمثلة سريعة -->
+                <div class="quick-commands">
+                    <h3>أوامر سريعة:</h3>
+                    <button class="quick-cmd" data-cmd="افتح Fortnite والعب 5 مباريات">
+                        🎮 العب Fortnite
+                    </button>
+                    <button class="quick-cmd" data-cmd="اصنع لي موقع portfolio">
+                        🌐 اصنع موقع
+                    </button>
+                    <button class="quick-cmd" data-cmd="اقرأ الشاشة">
+                        👁️ اقرأ الشاشة
+                    </button>
+                    <button class="quick-cmd" data-cmd="اصنع تطبيق todo list">
+                        📱 اصنع تطبيق
+                    </button>
+                </div>
+            </div>
+
+            <!-- ترمينال مدمج -->
+            <div class="section-card">
+                <h2>💻 الترمينال السحابي</h2>
+                
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="terminal-title">Cloud Terminal</span>
+                        <button id="clear-terminal" class="btn-icon">🗑️</button>
+                    </div>
+                    <div id="terminal-output" class="terminal-output">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">ai-depin@cloud:~$</span>
+                            <span class="terminal-text">مرحباً! الترمينال جاهز للاستخدام</span>
+                        </div>
+                    </div>
+                    <div class="terminal-input-line">
+                        <span class="terminal-prompt">ai-depin@cloud:~$</span>
+                        <input type="text" id="terminal-input" placeholder="أدخل أمر...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- صفحة الإعدادات -->
+    <div id="settings-page" class="page">
+        <div class="container">
+            <div class="section-card">
+                <h2>⚙️ الإعدادات</h2>
+                
+                <div class="settings-group">
+                    <h3>الإعدادات العامة</h3>
+                    <label class="setting-item">
+                        <input type="checkbox" id="dark-mode" checked>
+                        <span>الوضع الليلي</span>
+                    </label>
+                    <label class="setting-item">
+                        <input type="checkbox" id="notifications" checked>
+                        <span>تفعيل الإشعارات</span>
+                    </label>
+                </div>
+                
+                <div class="settings-group">
+                    <h3>معلومات النظام</h3>
+                    <p>الإصدار: 1.0.0</p>
+                    <p>الحالة: 🟢 متصل</p>
+                    <p id="system-info">جاري تحميل المعلومات...</p>
+                </div>
+                
+                <button id="reset-btn" class="btn-danger">إعادة تعيين</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+# Base Image Tools
+build-essential==12.9ubuntu3
+cmake==3.22.1
+git==2.34.1
+wget==1.21.2
+curl==7.81.0
+
+# System Libraries
+libpq-dev==14.10
+libssl-dev==3.0.2
+libffi-dev==3.4.2
+libjpeg-dev==8c
+libpng-dev==1.6.37
+libfreetype6-dev==2.11.1
+libxml2-dev==2.9.13
+libxslt1-dev==1.1.34
+zlib1g-dev==1.2.11
+
+# FFmpeg
+ffmpeg==4.4.2
+libavcodec-dev==4.4.2
+libavformat-dev==4.4.2
+libswscale-dev==4.4.2
+
+# Tesseract OCR
+tesseract-ocr==5.0.1
+libtesseract-dev==5.0.1
+
+# Redis
+redis-server==7.0.0
+
+# PostgreSQL
+postgresql==14.10
+postgresql-contrib==14.10

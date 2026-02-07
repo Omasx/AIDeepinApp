@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الوكيل الذكي - AI Agent Panel</title>
+    <link rel="stylesheet" href="agent_panel.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- خلفية ثلاثية الأبعاد -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- القائمة الجانبية -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>🤖 AI Agent</h2>
+            <button id="toggle-sidebar" class="btn-icon">☰</button>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="#overview" class="menu-item active">📊 <span>نظرة عامة</span></a>
+            <a href="#projects" class="menu-item">📁 <span>المشاريع</span></a>
+            <a href="#tasks" class="menu-item">✓ <span>المهام</span></a>
+            <a href="#github" class="menu-item">🔗 <span>GitHub</span></a>
+            <a href="#deploy" class="menu-item">🚀 <span>النشر</span></a>
+            <a href="#settings" class="menu-item">⚙️ <span>الإعدادات</span></a>
+        </nav>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <div class="command-bar">
+            <div class="command-input-container">
+                <button id="voice-btn" class="btn-voice">🎤</button>
+                <input type="text" id="command-input" class="command-input" placeholder="اكتب أمرك هنا... (مثال: اصنع موقع احترافي كامل)">
+                <button id="send-command-btn" class="btn-send">إرسال →</button>
+            </div>
+        </div>
+
+        <section id="active-projects" class="section">
+            <h2 class="section-title">المشاريع النشطة</h2>
+            <div id="projects-grid" class="projects-grid"></div>
+        </section>
+
+        <section id="running-tasks" class="section">
+            <h2 class="section-title">المهام الجارية</h2>
+            <div id="tasks-container" class="tasks-container"></div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="project-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">تفاصيل المشروع</h2>
+                <button class="modal-close">✖</button>
+            </div>
+            <div class="modal-body">
+                <div id="project-progress-bar" class="progress-bar"></div>
+                <div id="project-tasks-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="3d_interface.js"></script>
+    <script src="agent_panel.js"></script>
+</body>
+</html>
