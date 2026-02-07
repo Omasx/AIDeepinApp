@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var aiAgentService: AIAgentService
-    private lateinit var depin NetworkService: DePINNetworkService
+    private lateinit var depinNetworkService: DePINNetworkService
     private lateinit var resourceMonitor: ResourceMonitor
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initializeServices() {
         aiAgentService = AIAgentService(this)
-        depin NetworkService = DePINNetworkService(this)
+        depinNetworkService = DePINNetworkService(this)
         resourceMonitor = ResourceMonitor(this)
     }
 
