@@ -32,10 +32,26 @@ class AIAgentService(private val context: Context) {
     private val apiService = retrofit.create(AIAgentAPI::class.java)
 
     /**
-     * بدء الوكيل الذكي
+     * بدء الوكيل الذكي (DeOS Kernel)
      */
     suspend fun startAgent() {
         try {
+            Log.d(TAG, "🚀 تفعيل نظام DeOS المستقل...")
+
+            // طلب تفعيل النواة من السيرفر
+            val response = apiService.executeCommand(
+                mapOf(
+                    "command" to "start_deos_kernel",
+                    "mode" to "autonomous_24_7"
+                )
+            )
+
+            if (response.isSuccessful) {
+                Log.d(TAG, "✅ نظام DeOS يعمل الآن في الخلفية")
+            } else {
+                Log.e(TAG, "❌ فشل تفعيل DeOS")
+            }
+
             Log.d(TAG, "🤖 بدء الوكيل الذكي...")
             
             // الاتصال بالسيرفر
