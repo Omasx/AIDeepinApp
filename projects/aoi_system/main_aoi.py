@@ -13,6 +13,7 @@ from projects.aoi_system.layer5_memory.memory import MemorySystem
 from projects.aoi_system.layer6_healing.healing import SelfHealingLayer
 from projects.aoi_system.layer7_monitor.monitor import SystemWatchdog
 from projects.aoi_system.layer8_interface.interface import ControlInterface
+from projects.aoi_system.swarm.controller import SwarmController
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("AOI-Unified-System")
@@ -33,6 +34,7 @@ class AOISystem:
         self.vision = VisionMediaLayer()
         self.monitor = SystemWatchdog(self.healing)
         self.interface = ControlInterface(self)
+        self.swarm = SwarmController(max_concurrency=1000)
 
         self.running = False
 
@@ -42,6 +44,22 @@ class AOISystem:
         self.queue.start()
         asyncio.create_task(self.monitor.monitor_loop())
         logger.info("✅ All layers operational.")
+
+    async def trigger_swarm_goal(self, goal: str, agent_count: int = 100):
+        """
+        تشغيل هدف بنمط الـ Swarm (آلاف الوكلاء المتزامنين).
+        """
+        logger.info(f"🐝 Triggering Swarm Goal: {goal} with {agent_count} agents")
+
+        for i in range(agent_count):
+            self.swarm.add_task(
+                f"Agent-{i}",
+                self.brain.reason,
+                prompt=f"Sub-task {i} for objective: {goal}"
+            )
+
+        await self.swarm.execute_swarm()
+        logger.info(f"🏁 Swarm objective '{goal}' completed.")
 
     async def trigger_goal(self, goal: str):
         """

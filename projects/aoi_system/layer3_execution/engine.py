@@ -2,7 +2,8 @@ import logging
 import subprocess
 import asyncio
 import aiohttp
-from typing import Dict, Any
+from typing import Dict, Any, Callable
+from ..swarm.executor import CodeExecutor
 
 logger = logging.getLogger("AOI-Layer3-Execution")
 
@@ -12,7 +13,8 @@ class ExecutionEngine:
     المسؤولية: تنفيذ فعلي فقط عبر Queue
     """
     def __init__(self):
-        logger.info("🚀 Execution Engine Layer initialized.")
+        self.code_executor = CodeExecutor()
+        logger.info("🚀 Execution Engine Layer initialized with Swarm CodeExecutor.")
 
     async def execute_command(self, command: str) -> Dict[str, Any]:
         """
@@ -56,3 +58,9 @@ class ExecutionEngine:
         logger.info(f"🖱️ UI Action: {action} on {target}")
         await asyncio.sleep(2)
         return {"success": True, "result": f"Action {action} on {target} simulated."}
+
+    async def run_autonomous_coding(self, initial_code: str, repair_agent: Callable) -> Dict[str, Any]:
+        """
+        تنفيذ كود مع إصلاح تلقائي للأخطاء (Manus-like capability).
+        """
+        return await self.code_executor.autonomous_repair_loop(initial_code, repair_agent)
