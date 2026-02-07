@@ -1,0 +1,39 @@
+# AI & Machine Learning
+anthropic==0.25.0
+openai==1.14.0
+google-generativeai==0.4.1
+transformers==4.38.0
+torch==2.2.0
+opencv-python==4.9.0.80
+pillow==10.2.0
+pytesseract==0.3.10
+
+# Web & Server
+aiohttp==3.9.3
+aiohttp-cors==0.7.0
+websockets==12.0
+flask==3.0.2
+flask-cors==4.0.0
+
+# Game Automation
+pyautogui==0.9.54
+pynput==1.7.6
+keyboard==0.13.5
+mouse==0.7.1
+mss==9.0.1
+
+# Storage & Compression
+numpy==1.26.4
+scipy==1.12.0
+lzma
+pickle5==0.0.12
+
+# Audio
+speechrecognition==3.10.1
+pyttsx3==2.90
+pyaudio==0.2.14
+
+# Utilities
+python-dotenv==1.0.1
+requests==2.31.0
+aiofiles==23.2.1

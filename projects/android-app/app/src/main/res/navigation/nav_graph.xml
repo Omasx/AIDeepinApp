@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.aidepin.app.ui.HomeFragment"
+        android:label="@string/nav_home" />
+
+    <fragment
+        android:id="@+id/nav_store"
+        android:name="com.aidepin.app.ui.StoreFragment"
+        android:label="@string/nav_store" />
+
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.aidepin.app.ui.ChatFragment"
+        android:label="@string/nav_chat" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.aidepin.app.ui.ProfileFragment"
+        android:label="@string/nav_profile" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.aidepin.app.ui.SettingsFragment"
+        android:label="@string/nav_settings" />
+
+</navigation>

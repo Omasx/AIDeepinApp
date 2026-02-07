@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AI DePIN</string>
+    <string name="app_description">منصة ذكاء اصطناعي سحابية لامركزية</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_profile">الملف الشخصي</string>
+    <string name="nav_store">المتجر</string>
+    <string name="nav_settings">الإعدادات</string>
+    <string name="nav_chat">الدردشة</string>
+    <string name="nav_notifications">الإشعارات</string>
+    
+    <!-- Home Screen -->
+    <string name="welcome_message">مرحباً بك في AI DePIN</string>
+    <string name="quick_actions">الإجراءات السريعة</string>
+    <string name="recent_games">الألعاب الأخيرة</string>
+    <string name="recommended">موصى به</string>
+    
+    <!-- Store -->
+    <string name="search_games">ابحث عن ألعاب، تطبيقات، مواقع...</string>
+    <string name="add_from_link">إضافة من رابط</string>
+    <string name="paste_link">الصق رابط هنا</string>
+    <string name="add_button">إضافة</string>
+    
+    <!-- Profile -->
+    <string name="profile_title">الملف الشخصي</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="level">المستوى</string>
+    <string name="points">النقاط</string>
+    <string name="friends">الأصدقاء</string>
+    <string name="achievements">الإنجازات</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="api_keys">مفاتيح API</string>
+    <string name="openai_key">مفتاح OpenAI</string>
+    <string name="claude_key">مفتاح Claude</string>
+    <string name="gemini_key">مفتاح Gemini</string>
+    <string name="deepseek_key">مفتاح DeepSeek</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">إلغاء</string>
+    
+    <!-- Errors -->
+    <string name="error_loading">خطأ في التحميل</string>
+    <string name="error_network">خطأ في الاتصال</string>
+    <string name="retry">إعادة محاولة</string>
+</resources>
