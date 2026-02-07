@@ -52,8 +52,11 @@ google-auth==2.27.0
 google-auth-oauthlib==1.2.0
 
 # ========== AI & Machine Learning - Local Models ==========
-# Llama & Language Models
+# Llama & Language Models - AGI Layers
 llama-cpp-python==0.2.27
+langchain==0.1.12
+langchain-community==0.0.28
+langgraph==0.0.30  # لإدارة تدفق التفكير المعقد
 transformers==4.37.2
 tokenizers==0.15.1
 sentencepiece==0.1.99
