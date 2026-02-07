@@ -10,7 +10,7 @@ class TaskOrchestrator:
     """
     منسق المهام - يحول الأوامر إلى خطط تنفيذ مفصلة (100+ مهمة)
     """
-    
+
     def __init__(self):
         self.task_templates = self._load_task_templates()
 
@@ -24,16 +24,16 @@ class TaskOrchestrator:
             "api": self._get_api_template(),
             "data_processing": self._get_data_processing_template()
         }
-    
+
     async def create_task_plan(self, analysis: Dict) -> Dict[str, Any]:
         """
         إنشاء خطة مهام مفصلة
         """
         project_type = analysis.get('project_type', 'custom')
         requirements = analysis.get('requirements', {})
-        
+
         logger.info(f"📋 إنشاء خطة مهام لمشروع من نوع: {project_type}")
-        
+
         if project_type in self.task_templates:
             # استخدام قالب موجود
             template = self.task_templates[project_type]
@@ -41,7 +41,7 @@ class TaskOrchestrator:
         else:
             # إنشاء مهام مخصصة
             tasks = await self._generate_custom_tasks(analysis)
-        
+
         task_plan = {
             "id": f"plan_{datetime.now().timestamp()}",
             "project_type": project_type,
@@ -51,11 +51,11 @@ class TaskOrchestrator:
             "critical_path": self._find_critical_path(tasks),
             "publish": analysis.get('publish', True)
         }
-        
+
         logger.info(f"✅ تم إنشاء خطة بـ {len(tasks)} مهمة")
-        
+
         return task_plan
-    
+
     def _get_website_template(self) -> List[Dict]:
         """قالب إنشاء موقع احترافي ضخم"""
         tasks = [
@@ -123,7 +123,7 @@ class TaskOrchestrator:
             {"id": 9, "type": "code_generation", "description": "إنشاء واجهة API للنموذج", "complexity": "medium"},
             {"id": 10, "type": "web_deployment", "description": "نشر النموذج في السحابة", "complexity": "medium"}
         ]
-    
+
     def _get_mobile_app_template(self) -> List[Dict]:
         """قالب تطبيق موبايل احترافي"""
         return [
@@ -138,7 +138,7 @@ class TaskOrchestrator:
             {"id": 9, "type": "command_execution", "description": "بناء ملف APK/IPA", "complexity": "complex"},
             {"id": 10, "type": "github_operation", "description": "رفع الكود المصدري", "complexity": "simple"}
         ]
-    
+
     def _get_game_template(self) -> List[Dict]:
         """قالب تطوير لعبة"""
         return [
@@ -147,7 +147,7 @@ class TaskOrchestrator:
             {"id": 3, "type": "image_generation", "description": "توليد الشخصيات والعناصر", "complexity": "complex"},
             {"id": 4, "type": "code_generation", "description": "بناء المستويات (Level Design)", "complexity": "complex"}
         ]
-    
+
     def _get_api_template(self) -> List[Dict]:
         """قالب تطوير API"""
         return [
@@ -156,7 +156,7 @@ class TaskOrchestrator:
             {"id": 3, "type": "code_generation", "description": "نظام الأمان وJWT", "complexity": "complex"},
             {"id": 4, "type": "command_execution", "description": "توثيق الـ API (Swagger)", "complexity": "medium"}
         ]
-    
+
     def _get_data_processing_template(self) -> List[Dict]:
         """قالب معالجة بيانات ضخمة"""
         return [
@@ -164,7 +164,7 @@ class TaskOrchestrator:
             {"id": 2, "type": "command_execution", "description": "تحويل الصيغ ومعالجة التكرار", "complexity": "medium"},
             {"id": 3, "type": "ai_query", "description": "تحليل البيانات واستخراج الأنماط", "complexity": "complex"}
         ]
-    
+
     def _expand_template(self, template: List[Dict], requirements: Dict) -> List[Dict]:
         """توسيع القالب بناءً على المتطلبات"""
         expanded_tasks = []
@@ -175,7 +175,7 @@ class TaskOrchestrator:
                 expanded_task['description'] += f" مع ميزة {requirements['custom_feature']}"
             expanded_tasks.append(expanded_task)
         return expanded_tasks
-    
+
     async def _generate_custom_tasks(self, analysis: Dict) -> List[Dict]:
         """توليد مهام مخصصة للمشاريع غير التقليدية"""
         # يمكن استدعاء AI هنا لتوليد القائمة
@@ -184,7 +184,7 @@ class TaskOrchestrator:
             {"id": 2, "type": "code_generation", "description": "بناء النموذج الأولي (Prototype)", "complexity": "complex"},
             {"id": 3, "type": "command_execution", "description": "اختبار المفهوم (POC)", "complexity": "medium"}
         ]
-    
+
     def _analyze_dependencies(self, tasks: List[Dict]) -> Dict:
         """تحليل التبعيات بين المهام"""
         dependencies = {}

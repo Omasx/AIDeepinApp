@@ -8,12 +8,15 @@ from pathlib import Path
 import os
 import aiohttp_cors
 
-# استيراد المكونات
-from advanced_agent.autonomous_agent import AutonomousAgent
-# Note: DePINNetwork might be needed but the user prompt emphasizes the agent expansion
-# I will keep the imports consistent with the new modules
-from depin_network.quantum_optimizer import QuantumOptimizer
-from depin_network.spacetime_optimizer import SpacetimeOptimizer
+# استيراد المكونات - مسارات موحدة
+try:
+    from projects.ai_agent.backend.advanced_agent.autonomous_agent import AutonomousAgent
+    from projects.ai_agent.backend.depin_network.quantum_optimizer import QuantumOptimizer
+    from projects.ai_agent.backend.depin_network.spacetime_optimizer import SpacetimeOptimizer
+except ImportError:
+    from advanced_agent.autonomous_agent import AutonomousAgent
+    from depin_network.quantum_optimizer import QuantumOptimizer
+    from depin_network.spacetime_optimizer import SpacetimeOptimizer
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -74,11 +77,11 @@ class AIDePINServerAdvanced:
                 allow_credentials=True, expose_headers="*", allow_headers="*", allow_methods="*"
             )
         })
-        
+
         # Get absolute path to frontend directory
         base_dir = Path(__file__).parent.parent
         frontend_dir = base_dir / "frontend"
-        
+
         routes = [
             web.post('/api/agent/execute', self.handle_agent_execute),
             web.get('/api/agent/projects', self.handle_get_projects),
@@ -87,7 +90,7 @@ class AIDePINServerAdvanced:
             web.static('/static', str(frontend_dir)),
             web.get('/', lambda r: web.FileResponse(str(frontend_dir / "agent_panel.html")))
         ]
-        
+
         for route in routes:
             if hasattr(route, 'method'): # Standard route
                 cors.add(app.router.add_route(route.method, route.path, route.handler))
@@ -97,7 +100,7 @@ class AIDePINServerAdvanced:
         async def on_startup(app):
             await self.initialize()
         app.on_startup.append(on_startup)
-        
+
         web.run_app(app, host=host, port=port)
 
 if __name__ == '__main__':

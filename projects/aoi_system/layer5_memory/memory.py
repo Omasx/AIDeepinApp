@@ -12,7 +12,7 @@ class MemorySystem:
     LAYER 5 – Memory System
     المسؤولية: ذاكرة طويلة الأمد، منع تكرار الأخطاء، حفظ تاريخ النظام
     """
-    def __init__(self, db_path: str = "projects/aoi_system/memory.db"):
+    def __init__(self, db_path: str = "projects/aoi_system/data/memory.db"):
         self.db_path = db_path
         self._init_db()
         logger.info("💾 Memory System Layer initialized.")

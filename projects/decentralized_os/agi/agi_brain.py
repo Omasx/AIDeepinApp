@@ -8,7 +8,7 @@ class AGIBrain:
     العقل المدبر لـ AGI - يدير التعلم الذاتي واختيار الأدوات بناءً على الاحتمالات البايزية (Bayesian Inference).
     """
 
-    def __init__(self, memory_path: str = "projects/decentralized_os/agi/memory.json"):
+    def __init__(self, memory_path: str = "projects/aoi_system/data/brain_memory.json"):
         self.memory_path = Path(memory_path)
         self.tool_success_rates = self._load_memory()
 

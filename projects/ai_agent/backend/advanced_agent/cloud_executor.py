@@ -14,34 +14,34 @@ class CloudExecutor:
     """
     المنفذ السحابي - ينفذ العمليات في بيئة سحابية افتراضية مع دعم IPFS و Vercel
     """
-    
+
     def __init__(self):
         self.workspace_path = Path("/tmp/cloud_workspace")
         self.workspace_path.mkdir(parents=True, exist_ok=True)
-        
+
         # DePIN Nodes
         self.depin_nodes = []
         self.active_node = None
-        
+
         # Blockchain integrations
         self.blockchain_endpoints = {
             "filecoin": "https://api.node.glif.io",
             "arweave": "https://arweave.net",
             "ipfs": "https://ipfs.io/api/v0"
         }
-        
+
     async def initialize_depin_network(self):
         """تهيئة شبكة DePIN"""
         logger.info("🌐 تهيئة شبكة DePIN...")
-        
+
         self.depin_nodes = await self._discover_nodes()
-        
+
         if self.depin_nodes:
             self.active_node = self.depin_nodes[0]
             logger.info(f"✅ متصل بـ {len(self.depin_nodes)} عقدة")
         else:
             logger.warning("⚠️ لم يتم العثور على عقد DePIN، استخدام وضع محلي")
-    
+
     async def _discover_nodes(self) -> List[Dict]:
         """اكتشاف العقد المتاحة"""
         nodes = []
@@ -55,20 +55,20 @@ class CloudExecutor:
                 "available": True
             })
         return nodes
-    
+
     async def create_file(self, path: str, content: str) -> Dict[str, Any]:
         """إنشاء ملف في السحابة"""
         try:
             file_path = self.workspace_path / path
             file_path.parent.mkdir(parents=True, exist_ok=True)
-            
+
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(content)
-            
+
             cid = None
             if self.active_node:
                 cid = await self._upload_to_ipfs(file_path)
-            
+
             return {
                 "success": True,
                 "path": str(file_path),
@@ -78,7 +78,7 @@ class CloudExecutor:
         except Exception as e:
             logger.error(f"خطأ في إنشاء الملف: {e}")
             return {"success": False, "error": str(e)}
-    
+
     async def _upload_to_ipfs(self, file_path: Path) -> str:
         """رفع ملف على IPFS"""
         try:
@@ -93,16 +93,16 @@ class CloudExecutor:
         try:
             working_dir = cwd or str(self.workspace_path)
             logger.info(f"⚙️ تنفيذ: {command}")
-            
+
             process = await asyncio.create_subprocess_shell(
                 command,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
                 cwd=working_dir
             )
-            
+
             stdout, stderr = await process.communicate()
-            
+
             return {
                 "success": process.returncode == 0,
                 "stdout": stdout.decode('utf-8'),
@@ -112,7 +112,7 @@ class CloudExecutor:
         except Exception as e:
             logger.error(f"خطأ في تنفيذ الأمر: {e}")
             return {"success": False, "error": str(e)}
-    
+
     async def process_video(self, input_path: str, operations: List[Dict]) -> Dict[str, Any]:
         """معالجة فيديو باستخدام FFmpeg"""
         try:
@@ -129,7 +129,7 @@ class CloudExecutor:
         except Exception as e:
             logger.error(f"خطأ في معالجة الفيديو: {e}")
             return {"success": False, "error": str(e)}
-    
+
     async def deploy_website(self, source_dir: str, platform: str = "vercel") -> Dict[str, Any]:
         """نشر موقع على منصة سحابية"""
         try:
@@ -145,7 +145,7 @@ class CloudExecutor:
         except Exception as e:
             logger.error(f"خطأ في النشر: {e}")
             return {"success": False, "error": str(e)}
-    
+
     async def database_operation(self, operation: str, query: str = None) -> Dict[str, Any]:
         """عمليات قاعدة البيانات"""
         return {"success": True, "message": f"تم تنفيذ عملية {operation}"}

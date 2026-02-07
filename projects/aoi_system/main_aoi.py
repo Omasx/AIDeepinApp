@@ -17,6 +17,15 @@ from projects.aoi_system.layer8_interface.interface import ControlInterface
 from projects.aoi_system.swarm.controller import SwarmController
 from projects.aoi_system.layer2_queue.scheduler import AOIScheduler
 
+# استيراد المكونات المتخصصة من المشاريع الأخرى لتوحيد النظام
+try:
+    from projects.ai_agent.backend.quantum_prediction.motion_predictor import QuantumMotionPredictor
+    from projects.ai_agent.backend.universal_platform.platform_manager import UniversalPlatformManager
+    from projects.ai_agent.backend.media_gallery.gallery_manager import MediaGalleryManager
+    from projects.decentralized_os.storage.holographic_sharding import BekensteinSharder
+except ImportError as e:
+    logging.warning(f"⚠️ Some specialized modules could not be imported: {e}")
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("AOI-Unified-System")
 
@@ -38,6 +47,11 @@ class AOISystem:
         self.interface = ControlInterface(self)
         self.swarm = SwarmController(max_concurrency=1000)
         self.scheduler = AOIScheduler(self.queue)
+
+        # المكونات المتكاملة (Unified Components)
+        self.predictor = QuantumMotionPredictor() if 'QuantumMotionPredictor' in globals() else None
+        self.platform = UniversalPlatformManager() if 'UniversalPlatformManager' in globals() else None
+        self.sharder = BekensteinSharder() if 'BekensteinSharder' in globals() else None
 
         self.running = False
 

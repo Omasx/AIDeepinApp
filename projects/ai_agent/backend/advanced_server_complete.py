@@ -6,12 +6,20 @@ import logging
 from pathlib import Path
 import os
 
-# استيراد جميع المكونات المتقدمة
-from advanced_agent.autonomous_agent import AutonomousAgent
-from quantum_prediction.motion_predictor import QuantumMotionPredictor
-from universal_platform.platform_manager import UniversalPlatformManager
-from media_gallery.gallery_manager import MediaGalleryManager
-from auto_scaling.scaling_manager import AutoScalingManager
+# استيراد جميع المكونات المتقدمة بمسارات موحدة
+try:
+    from projects.ai_agent.backend.advanced_agent.autonomous_agent import AutonomousAgent
+    from projects.ai_agent.backend.quantum_prediction.motion_predictor import QuantumMotionPredictor
+    from projects.ai_agent.backend.universal_platform.platform_manager import UniversalPlatformManager
+    from projects.ai_agent.backend.media_gallery.gallery_manager import MediaGalleryManager
+    from projects.ai_agent.backend.auto_scaling.scaling_manager import AutoScalingManager
+except ImportError:
+    # دعم التشغيل المباشر من المجلد الحالي
+    from advanced_agent.autonomous_agent import AutonomousAgent
+    from quantum_prediction.motion_predictor import QuantumMotionPredictor
+    from universal_platform.platform_manager import UniversalPlatformManager
+    from media_gallery.gallery_manager import MediaGalleryManager
+    from auto_scaling.scaling_manager import AutoScalingManager
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

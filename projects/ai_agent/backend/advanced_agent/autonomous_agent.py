@@ -56,14 +56,21 @@ class AutonomousAgent:
         from .github_integrator import GitHubIntegrator
         from .self_healer import SelfHealer
         from .virtual_desktop import VirtualDesktop
-        # المكونات الجديدة من DeOS
-        from decentralized_os.agi.agi_brain import AGIBrain
-        from decentralized_os.agi.human_interceptor import HumanInterceptor
-        from decentralized_os.agi.key_battery import KeyBatteryManager
-        from decentralized_os.agi.media_alchemy import MediaAlchemy
+        # المكونات الجديدة من DeOS - مسارات موحدة
+        try:
+            from projects.decentralized_os.agi.agi_brain import AGIBrain
+            from projects.decentralized_os.agi.human_interceptor import HumanInterceptor
+            from projects.decentralized_os.agi.key_battery import KeyBatteryManager
+            from projects.decentralized_os.agi.media_alchemy import MediaAlchemy
 
-        # QuantumOptimizer exists in depin_network
-        from depin_network.quantum_optimizer import QuantumOptimizer
+            # QuantumOptimizer exists in depin_network
+            from projects.ai_agent.backend.depin_network.quantum_optimizer import QuantumOptimizer
+        except ImportError:
+            from decentralized_os.agi.agi_brain import AGIBrain
+            from decentralized_os.agi.human_interceptor import HumanInterceptor
+            from decentralized_os.agi.key_battery import KeyBatteryManager
+            from decentralized_os.agi.media_alchemy import MediaAlchemy
+            from depin_network.quantum_optimizer import QuantumOptimizer
         
         # تهيئة كل مكون
         self.task_orchestrator = TaskOrchestrator()
