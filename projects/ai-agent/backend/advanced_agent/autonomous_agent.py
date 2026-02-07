@@ -33,6 +33,12 @@ class AutonomousAgent:
         self.self_healer = None
         self.virtual_desktop = None
         
+        # المكونات المتقدمة الجديدة
+        self.agi_brain = None
+        self.human_interceptor = None
+        self.key_manager = None
+        self.media_alchemy = None
+
         # حالة الوكيل
         self.is_running = False
         self.active_projects = {}
@@ -50,6 +56,12 @@ class AutonomousAgent:
         from .github_integrator import GitHubIntegrator
         from .self_healer import SelfHealer
         from .virtual_desktop import VirtualDesktop
+        # المكونات الجديدة من DeOS
+        from decentralized_os.agi.agi_brain import AGIBrain
+        from decentralized_os.agi.human_interceptor import HumanInterceptor
+        from decentralized_os.agi.key_battery import KeyBatteryManager
+        from decentralized_os.agi.media_alchemy import MediaAlchemy
+
         # QuantumOptimizer exists in depin_network
         from depin_network.quantum_optimizer import QuantumOptimizer
         
@@ -62,6 +74,12 @@ class AutonomousAgent:
         self.self_healer = SelfHealer()
         self.virtual_desktop = VirtualDesktop()
         
+        # تهيئة المكونات المتقدمة
+        self.agi_brain = AGIBrain()
+        self.human_interceptor = HumanInterceptor()
+        self.key_manager = KeyBatteryManager()
+        self.media_alchemy = MediaAlchemy()
+
         # مزامنة نماذج AI
         await self.multi_ai_coordinator.sync_all_models()
         
@@ -242,10 +260,11 @@ class AutonomousAgent:
                 )
 
             elif task_type == 'video_processing':
-                # معالجة فيديو
-                result = await self.cloud_executor.process_video(
-                    input_path=task.get('input', ''),
-                    operations=task.get('operations', [])
+                # معالجة فيديو متقدمة عبر MediaAlchemy
+                result = await self.media_alchemy.create_video(
+                    script=task.get('description', ''),
+                    assets=task.get('assets', []),
+                    output_name=task.get('output', 'output.mp4')
                 )
 
             elif task_type == 'web_deployment':
