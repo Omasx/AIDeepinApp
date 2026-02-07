@@ -4,279 +4,102 @@ import logging
 from aiohttp import web
 import json
 from datetime import datetime
+from pathlib import Path
 import os
+import aiohttp_cors
 
 # استيراد المكونات
 from advanced_agent.autonomous_agent import AutonomousAgent
-from depin_network.depin_network import DePINNetwork
+# Note: DePINNetwork might be needed but the user prompt emphasizes the agent expansion
+# I will keep the imports consistent with the new modules
+from depin_network.quantum_optimizer import QuantumOptimizer
+from depin_network.spacetime_optimizer import SpacetimeOptimizer
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# المتغيرات العامة
-agent = None
-depin_network = None
+class AIDePINServerAdvanced:
+    def __init__(self):
+        self.autonomous_agent = None
+        self.active_websockets = set()
 
-async def init_app():
-    """تهيئة التطبيق"""
-    global agent, depin_network
-    
-    logger.info("🚀 تهيئة السيرفر...")
-    
-    # تهيئة الوكيل المستقل
-    api_keys = {
-        'openai': os.getenv('OPENAI_API_KEY'),
-        'anthropic': os.getenv('ANTHROPIC_API_KEY'),
-        'google': os.getenv('GOOGLE_API_KEY'),
-        'deepseek': os.getenv('DEEPSEEK_API_KEY'),
-        'github': os.getenv('GITHUB_TOKEN')
-    }
-    
-    agent = AutonomousAgent(api_keys, '/tmp/ai_agent_storage')
-    await agent.initialize()
-    
-    # تهيئة شبكة DePIN
-    depin_network = DePINNetwork()
-    
-    logger.info("✅ السيرفر جاهز!")
-
-# نقاط API
-
-# 1. تنفيذ أمر
-async def execute_command(request):
-    """تنفيذ أمر جديد"""
-    try:
-        data = await request.json()
-        command = data.get('command')
-        user_id = data.get('user_id', 'anonymous')
-        
-        logger.info(f"📥 أمر جديد من {user_id}: {command}")
-        
-        result = await agent.execute_command(command, user_id)
-        
-        return web.json_response(result)
-        
-    except Exception as e:
-        logger.error(f"❌ خطأ: {e}")
-        return web.json_response({"success": False, "error": str(e)}, status=400)
-
-# 2. الحصول على حالة المشروع
-async def get_project_status(request):
-    """الحصول على حالة مشروع"""
-    try:
-        project_id = request.match_info.get('project_id')
-        
-        status = agent.get_project_status(project_id)
-        
-        if status:
-            return web.json_response({"success": True, "project": status})
-        else:
-            return web.json_response({"success": False, "error": "المشروع غير موجود"}, status=404)
-            
-    except Exception as e:
-        return web.json_response({"success": False, "error": str(e)}, status=400)
-
-# 3. الحصول على جميع المشاريع
-async def get_all_projects(request):
-    """الحصول على جميع المشاريع"""
-    try:
-        user_id = request.query.get('user_id')
-        
-        projects = agent.get_all_projects(user_id)
-        
-        return web.json_response({
-            "success": True,
-            "projects": projects,
-            "count": len(projects)
-        })
-        
-    except Exception as e:
-        return web.json_response({"success": False, "error": str(e)}, status=400)
-
-# 4. إصلاح أخطاء المشروع
-async def fix_project_errors(request):
-    """إصلاح أخطاء مشروع"""
-    try:
-        project_id = request.match_info.get('project_id')
-        
-        result = await agent.fix_project_errors(project_id)
-        
-        return web.json_response(result)
-        
-    except Exception as e:
-        return web.json_response({"success": False, "error": str(e)}, status=400)
-
-# 5. تسجيل عقدة جديدة
-async def register_node(request):
-    """تسجيل عقدة جديدة في شبكة DePIN"""
-    try:
-        data = await request.json()
-        
-        result = await depin_network.register_node(data)
-        
-        return web.json_response(result)
-        
-    except Exception as e:
-        return web.json_response({"success": False, "error": str(e)}, status=400)
-
-# 6. إرسال مهمة إلى الشبكة
-async def submit_task(request):
-    """إرسال مهمة إلى شبكة DePIN"""
-    try:
-        data = await request.json()
-        
-        result = await depin_network.submit_task(data)
-        
-        return web.json_response(result)
-        
-    except Exception as e:
-        return web.json_response({"success": False, "error": str(e)}, status=400)
-
-# 7. الحصول على حالة المهمة
-async def get_task_status(request):
-    """الحصول على حالة مهمة"""
-    try:
-        task_id = request.match_info.get('task_id')
-        
-        result = await depin_network.get_task_status(task_id)
-        
-        return web.json_response(result)
-        
-    except Exception as e:
-        return web.json_response({"success": False, "error": str(e)}, status=400)
-
-# 8. الحصول على إحصائيات الشبكة
-async def get_network_stats(request):
-    """الحصول على إحصائيات شبكة DePIN"""
-    try:
-        result = await depin_network.get_network_stats()
-        
-        return web.json_response(result)
-        
-    except Exception as e:
-        return web.json_response({"success": False, "error": str(e)}, status=400)
-
-# 9. الحصول على قائمة العقد
-async def get_nodes_list(request):
-    """الحصول على قائمة العقد"""
-    try:
-        result = await depin_network.get_nodes_list()
-        
-        return web.json_response(result)
-        
-    except Exception as e:
-        return web.json_response({"success": False, "error": str(e)}, status=400)
-
-# 10. الحصول على الإحصائيات
-async def get_stats(request):
-    """الحصول على الإحصائيات العامة"""
-    try:
-        projects = agent.get_all_projects()
-        
-        stats = {
-            "activeProjects": len([p for p in projects if p['status'] == 'running']),
-            "completedTasks": len(agent.completed_tasks),
-            "activeNodes": len([n for n in depin_network.nodes.values() if n['status'] == 'active']),
-            "performance": 92,
-            "totalProjects": len(projects)
+    async def initialize(self):
+        logger.info("🚀 تهيئة السيرفر المتقدم...")
+        api_keys = {
+            'openai': os.getenv('OPENAI_API_KEY', ''),
+            'anthropic': os.getenv('ANTHROPIC_API_KEY', ''),
+            'google': os.getenv('GOOGLE_API_KEY', ''),
+            'deepseek': os.getenv('DEEPSEEK_API_KEY', ''),
+            'github': os.getenv('GITHUB_TOKEN', '')
         }
-        
-        return web.json_response({
-            "success": True,
-            "stats": stats
+        self.autonomous_agent = AutonomousAgent(api_keys, '/tmp/agent_storage')
+        await self.autonomous_agent.initialize()
+        logger.info("✅ السيرفر جاهز!")
+
+    async def handle_agent_execute(self, request):
+        data = await request.json()
+        user_id = data.get('user_id', 'default')
+        command = data.get('command')
+        if not command:
+            return web.json_response({"success": False, "error": "Command missing"}, status=400)
+        result = await self.autonomous_agent.execute_command(command, user_id)
+        return web.json_response(result)
+
+    async def handle_get_projects(self, request):
+        projects = self.autonomous_agent.get_all_projects()
+        return web.json_response(projects)
+
+    async def handle_sync_keys(self, request):
+        data = await request.json()
+        self.autonomous_agent.api_keys.update(data)
+        await self.autonomous_agent.multi_ai_coordinator.sync_all_models()
+        return web.json_response({"success": True, "message": "Keys synced"})
+
+    async def handle_websocket(self, request):
+        ws = web.WebSocketResponse()
+        await ws.prepare(request)
+        self.active_websockets.add(ws)
+        try:
+            async for msg in ws:
+                if msg.type == web.WSMsgType.TEXT:
+                    if msg.data == 'ping': await ws.send_str('pong')
+        finally:
+            self.active_websockets.remove(ws)
+        return ws
+
+    def run(self, host="0.0.0.0", port=8000):
+        app = web.Application()
+        cors = aiohttp_cors.setup(app, defaults={
+            "*": aiohttp_cors.ResourceOptions(
+                allow_credentials=True, expose_headers="*", allow_headers="*", allow_methods="*"
+            )
         })
         
-    except Exception as e:
-        return web.json_response({"success": False, "error": str(e)}, status=400)
+        # Get absolute path to frontend directory
+        base_dir = Path(__file__).parent.parent
+        frontend_dir = base_dir / "frontend"
+        
+        routes = [
+            web.post('/api/agent/execute', self.handle_agent_execute),
+            web.get('/api/agent/projects', self.handle_get_projects),
+            web.post('/api/agent/sync-keys', self.handle_sync_keys),
+            web.get('/ws/agent', self.handle_websocket),
+            web.static('/static', str(frontend_dir)),
+            web.get('/', lambda r: web.FileResponse(str(frontend_dir / "agent_panel.html")))
+        ]
+        
+        for route in routes:
+            if hasattr(route, 'method'): # Standard route
+                cors.add(app.router.add_route(route.method, route.path, route.handler))
+            else: # Static route
+                app.router.add_routes([route])
 
-# 11. الحصول على جميع المشاريع (للجدول)
-async def get_projects_list(request):
-    """الحصول على قائمة المشاريع"""
-    try:
-        projects = agent.get_all_projects()
+        async def on_startup(app):
+            await self.initialize()
+        app.on_startup.append(on_startup)
         
-        return web.json_response({
-            "success": True,
-            "projects": projects
-        })
-        
-    except Exception as e:
-        return web.json_response({"success": False, "error": str(e)}, status=400)
-
-# 12. Health Check
-async def health_check(request):
-    """فحص صحة السيرفر"""
-    return web.json_response({
-        "success": True,
-        "status": "healthy",
-        "timestamp": datetime.now().isoformat()
-    })
-
-# إعداد التطبيق
-async def create_app():
-    """إنشاء تطبيق aiohttp"""
-    app = web.Application()
-    
-    # تهيئة التطبيق
-    app.on_startup.append(lambda _: init_app())
-    
-    # إضافة المسارات
-    routes = [
-        # Agent API
-        web.post('/api/agent/execute', execute_command),
-        web.get('/api/agent/project/{project_id}', get_project_status),
-        web.get('/api/agent/projects', get_all_projects),
-        web.post('/api/agent/project/{project_id}/fix', fix_project_errors),
-        
-        # DePIN Network API
-        web.post('/api/depin/node/register', register_node),
-        web.post('/api/depin/task/submit', submit_task),
-        web.get('/api/depin/task/{task_id}', get_task_status),
-        web.get('/api/depin/stats', get_network_stats),
-        web.get('/api/depin/nodes', get_nodes_list),
-        
-        # General API
-        web.get('/api/stats', get_stats),
-        web.get('/api/projects', get_projects_list),
-        web.get('/api/health', health_check),
-        
-        # Static files
-        web.static('/static', 'frontend', name='static'),
-        web.get('/', lambda r: web.FileResponse('frontend/index.html')),
-    ]
-    
-    app.add_routes(routes)
-    
-    # CORS middleware
-    @web.middleware
-    async def cors_middleware(request, handler):
-        response = await handler(request)
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-        return response
-    
-    app.middlewares.append(cors_middleware)
-    
-    return app
-
-# تشغيل السيرفر
-async def main():
-    """تشغيل السيرفر الرئيسي"""
-    app = await create_app()
-    
-    runner = web.AppRunner(app)
-    await runner.setup()
-    
-    site = web.TCPSite(runner, '0.0.0.0', 8000)
-    await site.start()
-    
-    logger.info("🌐 السيرفر يعمل على http://0.0.0.0:8000")
-    logger.info("📊 الواجهة الأمامية: http://localhost:8000")
-    logger.info("📚 API Documentation: http://localhost:8000/api/docs")
-    
-    # الاستمرار في التشغيل
-    await asyncio.Event().wait()
+        web.run_app(app, host=host, port=port)
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    server = AIDePINServerAdvanced()
+    server.run()

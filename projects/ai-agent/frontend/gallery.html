@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>معرض الوسائط الذكي - AI Gallery</title>
+    <link rel="stylesheet" href="agent_panel.css">
+</head>
+<body>
+    <div class="gallery-container">
+        <h1>📸 معرض الوسائط الذكي</h1>
+        <div class="upload-zone" id="upload-zone">
+            <h2>اسحب الصور هنا للرفع السحابي (DePIN)</h2>
+            <input type="file" id="file-input" style="display:none">
+            <button onclick="document.getElementById('file-input').click()">اختيار ملف</button>
+        </div>
+        <div id="gallery-grid" class="projects-grid"></div>
+    </div>
+    <script>
+        document.getElementById('file-input').addEventListener('change', async (e) => {
+            const formData = new FormData();
+            formData.append('file', e.target.files[0]);
+            const resp = await fetch('http://localhost:8080/api/gallery/upload', {method: 'POST', body: formData});
+            const result = await resp.json();
+            alert('تم الرفع بنجاح! الوسوم: ' + result.tags.join(', '));
+        });
+    </script>
+</body>
+</html>
