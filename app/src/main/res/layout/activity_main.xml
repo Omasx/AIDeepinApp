@@ -133,6 +133,39 @@
         android:layout_weight="1"
         android:background="@drawable/gradient_background" />
 
+    <!-- Task Scheduler Bar -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/background"
+        android:scrollbars="none"
+        android:padding="4dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_schedule_task"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="➕ Schedule Task"
+                android:background="@drawable/rounded_button"
+                android:textColor="@color/primary"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:textSize="10sp"/>
+            <Button
+                android:id="@+id/btn_view_scheduled"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="📅 View All"
+                android:background="@drawable/rounded_button"
+                android:textColor="@color/primary"
+                android:padding="8dp"
+                android:textSize="10sp"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <!-- Navigation Buttons -->
     <LinearLayout
         android:layout_width="match_parent"

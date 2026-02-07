@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import sys
+from datetime import datetime
 from loguru import logger as loguru_logger
 
 # استيراد جميع الطبقات
@@ -14,6 +15,7 @@ from projects.aoi_system.layer6_healing.healing import SelfHealingLayer
 from projects.aoi_system.layer7_monitor.monitor import SystemWatchdog
 from projects.aoi_system.layer8_interface.interface import ControlInterface
 from projects.aoi_system.swarm.controller import SwarmController
+from projects.aoi_system.layer2_queue.scheduler import AOIScheduler
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("AOI-Unified-System")
@@ -35,15 +37,40 @@ class AOISystem:
         self.monitor = SystemWatchdog(self.healing)
         self.interface = ControlInterface(self)
         self.swarm = SwarmController(max_concurrency=1000)
+        self.scheduler = AOIScheduler(self.queue)
 
         self.running = False
 
     async def initialize(self):
         logger.info("🎬 Initializing Unified AOI System...")
-        # تشغيل الطبقات المستقلة (Queue, Monitor)
+        # تشغيل الطبقات المستقلة (Queue, Monitor, Scheduler)
         self.queue.start()
+        self.scheduler.start()
         asyncio.create_task(self.monitor.monitor_loop())
+
+        # تحميل المهام المجدولة من الذاكرة
+        await self.load_scheduled_tasks()
+
         logger.info("✅ All layers operational.")
+
+    async def load_scheduled_tasks(self):
+        tasks = self.memory.get_scheduled_tasks()
+        from datetime import datetime
+        for t in tasks:
+            run_at = datetime.fromisoformat(t["run_at"])
+            if run_at > datetime.now():
+                self.scheduler.schedule_task(
+                    t["name"], t["request"], t["type"], run_at,
+                    self.trigger_goal, {"goal": t["request"]}
+                )
+
+    async def schedule_new_task(self, name: str, request: str, task_type: str, run_at: datetime):
+        job_id = self.scheduler.schedule_task(
+            name, request, task_type, run_at,
+            self.trigger_goal, {"goal": request}
+        )
+        self.memory.add_scheduled_task(job_id, name, request, task_type, run_at)
+        return job_id
 
     async def trigger_swarm_goal(self, goal: str, agent_count: int = 100):
         """

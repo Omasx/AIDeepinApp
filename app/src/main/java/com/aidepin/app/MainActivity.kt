@@ -65,6 +65,15 @@ class MainActivity : AppCompatActivity() {
             openDeployment()
         }
 
+        // Task Scheduler Buttons
+        findViewById<Button>(R.id.btn_schedule_task).setOnClickListener {
+            showScheduleTaskDialog()
+        }
+
+        findViewById<Button>(R.id.btn_view_scheduled).setOnClickListener {
+            viewScheduledTasks()
+        }
+
         // AI Agent Button
         findViewById<ImageButton>(R.id.ai_agent_btn).setOnClickListener {
             activateAIAgent()
@@ -134,6 +143,24 @@ class MainActivity : AppCompatActivity() {
      */
     private fun openSettings() {
         // TODO: تطبيق الإعدادات
+    }
+
+    /**
+     * عرض ديالوج جدولة مهمة
+     */
+    private fun showScheduleTaskDialog() {
+        // TODO: تطبيق DatePickerDialog و TimePickerDialog
+        // محاكاة إرسال مهمة مجدولة للسيرفر
+        lifecycleScope.launch {
+            aiAgentService.executeCommand("schedule_task: [Name: Audit, Time: 2026-02-08T10:00:00]")
+        }
+    }
+
+    /**
+     * عرض كافة المهام المجدولة
+     */
+    private fun viewScheduledTasks() {
+        // TODO: عرض قائمة المهام في RecyclerView
     }
 
     override fun onDestroy() {
