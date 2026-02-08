@@ -1,5 +1,7 @@
 import logging
+import asyncio
 from enum import Enum
+from datetime import datetime
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
 
@@ -10,6 +12,8 @@ class SystemState(Enum):
     PLANNING = "planning"
     EXECUTING = "executing"
     VERIFYING = "verifying"
+    AWAITING_APPROVAL = "awaiting_approval"
+    SYNCING = "syncing"
     ERROR = "error"
 
 class Task(BaseModel):
@@ -32,7 +36,36 @@ class PlanningControl:
     def __init__(self):
         self.state = SystemState.IDLE
         self.current_plan: Optional[Plan] = None
+        self.pending_approvals = {}
         logger.info("🎮 Planning Control Layer initialized.")
+
+    async def submit_for_approval(self, task_id: str, results: Dict[str, Any]):
+        """
+        إرسال النتائج للمستخدم للموافقة عليها قبل الدمج النهائي.
+        """
+        self.pending_approvals[task_id] = {
+            "results": results,
+            "timestamp": datetime.now().isoformat(),
+            "status": "pending"
+        }
+        self.transition_to(SystemState.AWAITING_APPROVAL)
+        logger.info(f"⏳ Task {task_id} is awaiting human approval.")
+
+    async def approve_task(self, task_id: str):
+        """
+        موافقة المستخدم على النتائج وبدء التزامن.
+        """
+        if task_id in self.pending_approvals:
+            self.pending_approvals[task_id]["status"] = "approved"
+            self.transition_to(SystemState.SYNCING)
+            logger.info(f"✅ Task {task_id} approved. Starting state synchronization...")
+
+            # محاكاة وقت المزامنة (2-3 دقائق كما طلب المستخدم)
+            await asyncio.sleep(2) # لغرض العرض، نستخدم ثواني
+
+            self.transition_to(SystemState.IDLE)
+            return True
+        return False
 
     def transition_to(self, new_state: SystemState):
         logger.info(f"🔄 State Transition: {self.state.value} -> {new_state.value}")

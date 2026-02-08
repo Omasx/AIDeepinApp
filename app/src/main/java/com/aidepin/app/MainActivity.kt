@@ -10,6 +10,9 @@ import com.aidepin.app.services.AIAgentService
 import com.aidepin.app.services.DePINNetworkService
 import com.aidepin.app.ui.ResourceMonitor
 import kotlinx.coroutines.launch
+import android.widget.Toast
+
+enum class NotificationType { SYSTEM, AI, SUCCESS, ERROR }
 
 /**
  * MainActivity - الشاشة الرئيسية للتطبيق
@@ -63,6 +66,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btn_deploy).setOnClickListener {
             openDeployment()
+        }
+
+        findViewById<Button>(R.id.btn_store).setOnClickListener {
+            openUniversalStore()
         }
 
         // Task Scheduler Buttons
@@ -185,6 +192,30 @@ class MainActivity : AppCompatActivity() {
      */
     private fun openSocialPlatform() {
         // TODO: الانتقال لـ SocialFragment
+    }
+
+    /**
+     * فتح المتجر العالمي (90+ متجر)
+     */
+    private fun openUniversalStore() {
+        // TODO: عرض واجهة المتجر مع الـ 90 متجر المتاحة
+        showSmartNotification("Universal Store", "Accessing 90+ Global Stores...", NotificationType.SYSTEM)
+    }
+
+    /**
+     * عرض إشعار ذكي للمستخدم
+     */
+    private fun showSmartNotification(title: String, message: String, type: NotificationType) {
+        Toast.makeText(this, "[$title] $message", Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * تحديث صلاحية التحكم للذكاء الاصطناعي في تطبيق معين
+     */
+    private fun setAppAiPermission(appId: String, allowed: Boolean) {
+        lifecycleScope.launch {
+            aiAgentService.executeCommand("set_ai_permission: [App: $appId, Allowed: $allowed]")
+        }
     }
 
     override fun onDestroy() {

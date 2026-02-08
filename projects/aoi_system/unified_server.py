@@ -100,6 +100,29 @@ class UnifiedServer:
         async def switch_blockchain(network: str):
             return await self.aoi.blockchain.switch_network(network)
 
+        # --- مسارات المتجر العالمي ووكيل الـ GUI ---
+        @self.app.get("/api/store/list")
+        async def list_stores():
+            return self.aoi.store.list_all_stores()
+
+        @self.app.post("/api/store/install")
+        async def install_app(name: str, store: str, platform: str):
+            return await self.aoi.app_bridge.install_app(name, store, platform)
+
+        @self.app.post("/api/app/launch")
+        async def launch_app(app_id: str):
+            return await self.aoi.app_bridge.launch_app(app_id)
+
+        @self.app.post("/api/app/mission")
+        async def start_gui_mission(app_id: str, mission: str):
+            # تشغيل المهمة في الخلفية
+            asyncio.create_task(self.aoi.gui_agent.execute_gui_mission(app_id, mission))
+            return {"status": "Mission Started", "app_id": app_id}
+
+        @self.app.post("/api/app/approve")
+        async def approve_mission_results(task_id: str):
+            return await self.aoi.control.approve_task(task_id)
+
         # دمج مسارات الـ AI Agent القديم
         @self.app.post("/api/predict")
         async def predict_motion(data: dict):
