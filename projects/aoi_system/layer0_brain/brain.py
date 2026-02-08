@@ -2,6 +2,7 @@ import logging
 import asyncio
 from typing import List, Dict, Any
 from ..swarm.router import APIRouter, APIKey
+from ..agi_core.superintelligent_agent import SuperIntelligentAgent
 
 logger = logging.getLogger("AOI-Layer0-Brain")
 
@@ -14,7 +15,11 @@ class CoreBrain:
         self.model_name = model_name
         # تهيئة الـ Router مع مفتاح تجريبي
         self.router = APIRouter([APIKey("LocalNode", "key_12345")])
-        logger.info(f"🧠 Brain Layer initialized with {self.model_name} and Swarm Router")
+
+        # دمج الوكيل الفائق الذكاء (AGI Upgrade)
+        self.super_agent = SuperIntelligentAgent()
+
+        logger.info(f"🧠 Brain Layer initialized with {self.model_name} and SuperIntelligentAgent")
 
     async def reason(self, prompt: str, context: Dict[str, Any] = None) -> str:
         """

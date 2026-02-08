@@ -9,6 +9,8 @@ import uvicorn
 
 # استيراد النظام الموحد
 from projects.aoi_system.main_aoi import AOISystem
+from projects.aoi_system.live_agent.live_executor import LiveAgentExecutor
+from projects.aoi_system.live_agent.websocket_manager import WebSocketManager
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("AOI-Unified-Server")
@@ -21,6 +23,12 @@ class UnifiedServer:
     def __init__(self):
         self.app = FastAPI(title="AOI Unified Control System")
         self.aoi = AOISystem()
+
+        # التنفيذ المباشر (Ultimate Feature)
+        self.ws_manager = WebSocketManager()
+        self.live_executor = LiveAgentExecutor(self.ws_manager)
+        self.live_executor.agi_agent = self.aoi.brain.super_agent
+
         self._setup_middleware()
         self._setup_routes()
         self._setup_static()
@@ -55,6 +63,25 @@ class UnifiedServer:
             run_at = datetime.fromisoformat(time_iso)
             job_id = await self.aoi.schedule_new_task(name, request, task_type, run_at)
             return {"status": "Scheduled", "job_id": job_id}
+
+        # --- مسارات AGI الجديدة ---
+        @self.app.post("/api/agi/execute")
+        async def execute_agi_task(goal: str, user_id: str = "default"):
+            asyncio.create_task(self.aoi.brain.super_agent.execute_complex_task(goal, {"user_id": user_id}))
+            return {"status": "AGI Task Started", "goal": goal}
+
+        @self.app.post("/api/maintenance/auto")
+        async def run_maintenance(action: str = "full"):
+            result = await self.aoi.healing.maintenance.auto_optimize_performance()
+            return {"status": "Maintenance performed", "result": result}
+
+        @self.app.post("/api/quantum/storage")
+        async def quantum_storage(size_gb: float = 100):
+            return await self.aoi.quantum_cloud.allocate_infinite_storage(size_gb)
+
+        @self.app.post("/api/capabilities/video-montage")
+        async def video_montage(req: dict):
+            return await self.aoi.expanded_capabilities.execute_video_montage_full(req)
 
         # دمج مسارات الـ AI Agent القديم
         @self.app.post("/api/predict")

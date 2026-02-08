@@ -3,6 +3,7 @@ import traceback
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from loguru import logger as loguru_logger
 from typing import Callable, Any
+from ..agi_core.self_maintenance_system import SelfMaintenanceSystem
 
 # إعداد Loguru
 import sys
@@ -17,7 +18,8 @@ class SelfHealingLayer:
     """
     def __init__(self, memory_system):
         self.memory = memory_system
-        loguru_logger.info("🔧 Self-Healing & Error Analysis Layer initialized.")
+        self.maintenance = SelfMaintenanceSystem()
+        loguru_logger.info("🔧 Self-Healing & Error Analysis Layer initialized with Self-Maintenance.")
 
     def analyze_exception(self, e: Exception):
         """

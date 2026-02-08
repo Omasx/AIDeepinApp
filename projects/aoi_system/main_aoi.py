@@ -17,6 +17,10 @@ from projects.aoi_system.layer8_interface.interface import ControlInterface
 from projects.aoi_system.swarm.controller import SwarmController
 from projects.aoi_system.layer2_queue.scheduler import AOIScheduler
 
+# استيراد المكونات المتطورة لـ AGI
+from projects.aoi_system.agi_core.quantum_cloud_core import QuantumCloudCore
+from projects.aoi_system.agi_core.capabilities_expanded import ExpandedCapabilities
+
 # استيراد المكونات المتخصصة من المشاريع الأخرى لتوحيد النظام
 try:
     from projects.ai_agent.backend.quantum_prediction.motion_predictor import QuantumMotionPredictor
@@ -47,6 +51,10 @@ class AOISystem:
         self.interface = ControlInterface(self)
         self.swarm = SwarmController(max_concurrency=1000)
         self.scheduler = AOIScheduler(self.queue)
+
+        # المكونات المتطورة لـ AGI (Ultimate Integration)
+        self.quantum_cloud = QuantumCloudCore()
+        self.expanded_capabilities = ExpandedCapabilities()
 
         # المكونات المتكاملة (Unified Components)
         self.predictor = QuantumMotionPredictor() if 'QuantumMotionPredictor' in globals() else None
