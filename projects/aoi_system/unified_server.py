@@ -151,6 +151,39 @@ class UnifiedServer:
             success = self.ui_manager.set_custom_mode(mode)
             return {"success": success, "new_mode": self.ui_manager.current_mode.value}
 
+        # --- مسارات الميزات الضخمة (Mega Features) ---
+        @self.app.post("/api/cloud/init")
+        async def init_cloud_brain(user_id: str):
+            return await self.aoi.zero_cpu.initialize_cloud_brain()
+
+        @self.app.post("/api/gaming/launch")
+        async def launch_cloud_game(game: str, resolution: str = "1080p"):
+            return await self.aoi.cloud_gaming.launch_game(game, {"resolution": resolution})
+
+        @self.app.post("/api/creative/launch")
+        async def launch_creative_app(app: str):
+            return await self.aoi.creative_suite.launch_app(app)
+
+        @self.app.post("/api/automation/workflow")
+        async def create_workflow(w_type: str, config: dict):
+            if w_type == "content":
+                return await self.aoi.automation.create_content_manager_workflow(config)
+            return {"error": "Unknown workflow type"}
+
+        @self.app.post("/api/virtualization/run")
+        async def run_universal_app(app: str, platform: str):
+            if platform == "ios": return await self.aoi.app_runner.run_ios_app(app)
+            if platform == "windows": return await self.aoi.app_runner.run_windows_app(app)
+            return {"error": "Unsupported platform"}
+
+        @self.app.post("/api/quantum/enhance")
+        async def quantum_enhance(img_path: str, e_type: str = "super_resolution"):
+            return await self.aoi.quantum_ai.enhance_image_quantum(img_path, e_type)
+
+        @self.app.post("/api/neural/connect")
+        async def connect_neural(device: str = "emotiv"):
+            return await self.aoi.neural.connect_device(device)
+
         # دمج مسارات الـ AI Agent القديم
         @self.app.post("/api/predict")
         async def predict_motion(data: dict):

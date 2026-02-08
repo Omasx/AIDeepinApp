@@ -10,7 +10,9 @@ import com.aidepin.app.services.AIAgentService
 import com.aidepin.app.services.DePINNetworkService
 import com.aidepin.app.ui.InteractiveFeedbackManager
 import com.aidepin.app.ui.ResourceMonitor
+import com.aidepin.app.clients.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 import android.widget.Toast
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var resourceMonitor: ResourceMonitor
     private lateinit var feedbackManager: InteractiveFeedbackManager
     private var currentUiMode = UIMode.MOBILE
+    private var isCloudVMActive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +41,42 @@ class MainActivity : AppCompatActivity() {
 
         feedbackManager = InteractiveFeedbackManager(this)
         initializeServices()
-        setupUI()
-        setupGestureDetection()
-        startMonitoring()
+
+        // التحقق من تفعيل "العقل السحابي"
+        if (!isCloudVMActive) {
+            initializeCloudBrain()
+        } else {
+            setupUI()
+            setupGestureDetection()
+            startMonitoring()
+        }
+    }
+
+    /**
+     * تهيئة العقل السحابي (Zero Local Processing)
+     */
+    private fun initializeCloudBrain() {
+        lifecycleScope.launch {
+            showSmartNotification("Cloud Brain", "Initializing Zero Local Processing...", NotificationType.AI)
+            feedbackManager.triggerImpact()
+
+            // محاكاة الاتصال بالسيرفر الموحد لتهيئة السحابة
+            delay(2000)
+
+            isCloudVMActive = true
+            showSmartNotification("Cloud Brain", "✅ Ready! CPU usage is now 0%", NotificationType.SUCCESS)
+
+            setupUI()
+            setupGestureDetection()
+            startMonitoring()
+
+            showWelcomeDialog()
+        }
+    }
+
+    private fun showWelcomeDialog() {
+        // محاكاة دايلوج الترحيب
+        Toast.makeText(this, "Welcome to AI DePIN OS! Cloud resources allocated.", Toast.LENGTH_LONG).show()
     }
 
     /**

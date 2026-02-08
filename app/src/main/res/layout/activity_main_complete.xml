@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0A0A0A">
+
+        <!-- Top Cloud Status Bar -->
+        <LinearLayout
+            android:id="@+id/cloud_status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="#1A1A1A">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="☁️ Cloud VM: Active"
+                android:textColor="#00FF00"
+                android:textSize="12sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="💰 Credits: 1250.5"
+                android:textColor="#FFD700"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <!-- Main Content Area (3D Visualization/Remote Stream) -->
+        <FrameLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/cloud_status_bar"
+            android:layout_above="@+id/bottom_nav">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/gradient_background"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="ZERO LOCAL PROCESSING ACTIVE"
+                android:textColor="#44FFFFFF"
+                android:textStyle="bold"/>
+        </FrameLayout>
+
+        <!-- Floating Mega Action Button -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_mega"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_nav"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_ai_agent"
+            app:backgroundTint="#007AFF"/>
+
+        <!-- Bottom Navigation -->
+        <LinearLayout
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="#1A1A1A"
+            android:orientation="horizontal">
+            <!-- Navigation Items -->
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

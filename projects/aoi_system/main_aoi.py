@@ -28,6 +28,16 @@ from projects.aoi_system.social_network.social_platform import DePINSocialPlatfo
 from projects.aoi_system.blockchain.blockchain_switcher import MultiBlockchainSystem
 from projects.aoi_system.performance.scalability_engine import ScalabilityEngine
 
+# استيراد الميزات المتقدمة الجديدة (Zero Local Processing)
+from projects.aoi_system.advanced.cloud_brain.engine import ZeroLocalProcessingEngine
+from projects.aoi_system.advanced.gaming.engine import CloudGamingEngine
+from projects.aoi_system.advanced.creative.suite import CloudCreativeSuite
+from projects.aoi_system.advanced.automation.workflows import AutonomousWorkflowEngine
+from projects.aoi_system.advanced.virtualization.app_runner import UniversalAppRunner
+from projects.aoi_system.advanced.quantum.quantum_ai import QuantumEnhancedAI
+from projects.aoi_system.advanced.neural.bci_interface import NeuralInterface
+from projects.aoi_system.advanced.cloud_brain.scaler import SmartResourceAllocator
+
 # استيراد المكونات المتخصصة من المشاريع الأخرى لتوحيد النظام
 try:
     from projects.ai_agent.backend.quantum_prediction.motion_predictor import QuantumMotionPredictor
@@ -69,6 +79,16 @@ class AOISystem:
         self.social = DePINSocialPlatform()
         self.blockchain = MultiBlockchainSystem(user_email="user@aidepin.app")
         self.scaler = ScalabilityEngine()
+
+        # الميزات المتقدمة الجديدة (Mega Features)
+        self.zero_cpu = ZeroLocalProcessingEngine(user_id="default_user")
+        self.cloud_gaming = CloudGamingEngine(self.zero_cpu.allocated_resources)
+        self.creative_suite = CloudCreativeSuite(self.zero_cpu.allocated_resources)
+        self.automation = AutonomousWorkflowEngine(self.brain, self.zero_cpu.allocated_resources)
+        self.app_runner = UniversalAppRunner(self.zero_cpu.allocated_resources)
+        self.quantum_ai = QuantumEnhancedAI(self.zero_cpu.allocated_resources)
+        self.neural = NeuralInterface()
+        self.smart_allocator = SmartResourceAllocator()
 
         # المكونات المتكاملة (Unified Components)
         self.predictor = QuantumMotionPredictor() if 'QuantumMotionPredictor' in globals() else None
