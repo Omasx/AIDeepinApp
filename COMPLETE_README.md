@@ -138,7 +138,7 @@ projects/android-app/
 
 ### **5. 🧠 AI Agent Advanced (الوكيل الذكي المتقدم)**
 ```
-projects/ai-agent/
+projects/ai_agent/
 ├── backend/
 │   ├── advanced_agent/
 │   │   ├── autonomous_agent.py
@@ -185,7 +185,7 @@ AIDeepinApp/
 │   ├── 📁 gaming-server/       # سيرفر الألعاب (Python)
 │   ├── 📁 ai-platform/         # منصة AI (Python + Web)
 │   ├── 📁 android-app/         # تطبيق أندرويد (Kotlin)
-│   └── 📁 ai-agent/            # الوكيل الذكي (Python)
+│   └── 📁 ai_agent/            # الوكيل الذكي (Python)
 │
 ├── 📄 README.md                # دليل البدء السريع
 ├── 📄 COMPLETE_README.md       # هذا الملف
@@ -242,7 +242,7 @@ cd projects/android-app
 
 #### **الوكيل الذكي (Python)**
 ```bash
-cd projects/ai-agent/backend
+cd projects/ai_agent/backend
 bash ../scripts/install.sh
 python server.py
 ```

@@ -103,8 +103,8 @@
 
 ```bash
 # استنساخ المشروع
-git clone https://github.com/yourusername/ai-agent-advanced.git
-cd ai-agent-advanced
+git clone https://github.com/yourusername/ai_agent-advanced.git
+cd ai_agent-advanced
 
 # تشغيل سكريبت التثبيت
 bash scripts/install.sh
@@ -176,7 +176,7 @@ DEBUG=True
 ## 📁 هيكل المشروع
 
 ```
-ai-agent-advanced/
+ai_agent-advanced/
 ├── backend/
 │   ├── advanced_agent/
 │   │   ├── autonomous_agent.py       # الوكيل المستقل
@@ -284,7 +284,7 @@ curl -X POST http://localhost:8000/api/depin/node/register \
 للمساعدة والدعم:
 - 📧 البريد الإلكتروني: support@aidepin.com
 - 💬 Discord: [انضم إلى خادمنا](https://discord.gg/aidepin)
-- 🐛 الإبلاغ عن الأخطاء: [GitHub Issues](https://github.com/yourusername/ai-agent-advanced/issues)
+- 🐛 الإبلاغ عن الأخطاء: [GitHub Issues](https://github.com/yourusername/ai_agent-advanced/issues)
 
 ## 🙏 شكر خاص
 

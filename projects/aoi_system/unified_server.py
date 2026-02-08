@@ -6,6 +6,7 @@ from fastapi import FastAPI, WebSocket, Request, UploadFile, File
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+from datetime import datetime
 
 # استيراد النظام الموحد
 from projects.aoi_system.main_aoi import AOISystem
@@ -61,7 +62,6 @@ class UnifiedServer:
 
         @self.app.post("/api/schedule")
         async def schedule_task(name: str, request: str, task_type: str, time_iso: str):
-            from datetime import datetime
             run_at = datetime.fromisoformat(time_iso)
             job_id = await self.aoi.schedule_new_task(name, request, task_type, run_at)
             return {"status": "Scheduled", "job_id": job_id}
@@ -69,8 +69,13 @@ class UnifiedServer:
         # --- مسارات AGI الجديدة ---
         @self.app.post("/api/agi/execute")
         async def execute_agi_task(goal: str, user_id: str = "default"):
+            # التحقق من الأوامر المحظورة (Basic Security)
+            restricted = ["rm -rf", "shutdown", "kill"]
+            if any(r in goal.lower() for r in restricted):
+                return {"status": "Rejected", "reason": "Restricted command detected"}
+
             asyncio.create_task(self.aoi.brain.super_agent.execute_complex_task(goal, {"user_id": user_id}))
-            return {"status": "AGI Task Started", "goal": goal}
+            return {"status": "AGI Task Started", "goal": goal, "timestamp": str(datetime.now())}
 
         @self.app.post("/api/maintenance/auto")
         async def run_maintenance(action: str = "full"):
@@ -153,7 +158,7 @@ class UnifiedServer:
 
         # --- مسارات الميزات الضخمة (Mega Features) ---
         @self.app.post("/api/cloud/init")
-        async def init_cloud_brain(user_id: str):
+        async def init_cloud_brain(user_id: str = "default_user"):
             return await self.aoi.zero_cpu.initialize_cloud_brain()
 
         @self.app.post("/api/gaming/launch")
