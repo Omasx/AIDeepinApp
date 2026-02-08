@@ -8,11 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.aidepin.app.services.AIAgentService
 import com.aidepin.app.services.DePINNetworkService
+import com.aidepin.app.ui.InteractiveFeedbackManager
 import com.aidepin.app.ui.ResourceMonitor
 import kotlinx.coroutines.launch
 import android.widget.Toast
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
+import android.view.GestureDetector
+import android.view.View
 
 enum class NotificationType { SYSTEM, AI, SUCCESS, ERROR }
+enum class UIMode { MOBILE, CONSOLE, FLOATING, DESKTOP }
 
 /**
  * MainActivity - الشاشة الرئيسية للتطبيق
@@ -23,14 +29,67 @@ class MainActivity : AppCompatActivity() {
     private lateinit var aiAgentService: AIAgentService
     private lateinit var depinNetworkService: DePINNetworkService
     private lateinit var resourceMonitor: ResourceMonitor
+    private lateinit var feedbackManager: InteractiveFeedbackManager
+    private var currentUiMode = UIMode.MOBILE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        feedbackManager = InteractiveFeedbackManager(this)
         initializeServices()
         setupUI()
+        setupGestureDetection()
         startMonitoring()
+    }
+
+    /**
+     * إعداد كشف الإيماءات المتقدمة (3، 2، 4 أصابع)
+     */
+    private fun setupGestureDetection() {
+        val mainView = findViewById<View>(android.R.id.content)
+        mainView.setOnTouchListener { v, event ->
+            val pointerCount = event.pointerCount
+
+            when (event.actionMasked) {
+                MotionEvent.ACTION_POINTER_DOWN -> {
+                    if (pointerCount == 4) {
+                        showQuickMenu() // 4 أصابع: القائمة السريعة
+                    }
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    if (pointerCount == 3) {
+                        handleWindowMove(event) // 3 أصابع: تحريك النافذة
+                    } else if (pointerCount == 2) {
+                        handleWindowResize(event) // أصبعان: تغيير الحجم
+                    }
+                }
+            }
+            true
+        }
+    }
+
+    private fun handleWindowMove(event: MotionEvent) {
+        if (currentUiMode == UIMode.MOBILE) {
+            setUIMode(UIMode.CONSOLE)
+        } else if (currentUiMode == UIMode.FLOATING) {
+            // منطق تحريك النافذة العائمة
+            showSmartNotification("Floating", "Moving window...", NotificationType.AI)
+        }
+    }
+
+    private fun handleWindowResize(event: MotionEvent) {
+        if (currentUiMode == UIMode.MOBILE) {
+            setUIMode(UIMode.DESKTOP)
+        } else if (currentUiMode == UIMode.FLOATING || currentUiMode == UIMode.DESKTOP) {
+            // منطق تغيير حجم النافذة
+            showSmartNotification("Layout", "Resizing...", NotificationType.SYSTEM)
+        }
+    }
+
+    private fun showQuickMenu() {
+        feedbackManager.triggerImpact()
+        showSmartNotification("Quick Menu", "Opening shortcuts...", NotificationType.AI)
     }
 
     /**
@@ -48,41 +107,50 @@ class MainActivity : AppCompatActivity() {
     private fun setupUI() {
         // Settings Button
         findViewById<ImageButton>(R.id.settings_btn).setOnClickListener {
+            feedbackManager.triggerClick(it)
             openSettings()
         }
 
         // Navigation Buttons
         findViewById<Button>(R.id.btn_code).setOnClickListener {
+            feedbackManager.triggerClick(it)
             openCodeEditor()
         }
 
         findViewById<Button>(R.id.btn_data).setOnClickListener {
+            feedbackManager.triggerClick(it)
             openDataManager()
         }
 
         findViewById<Button>(R.id.btn_test).setOnClickListener {
+            feedbackManager.triggerClick(it)
             openTestRunner()
         }
 
         findViewById<Button>(R.id.btn_deploy).setOnClickListener {
+            feedbackManager.triggerClick(it)
             openDeployment()
         }
 
         findViewById<Button>(R.id.btn_store).setOnClickListener {
+            feedbackManager.triggerClick(it)
             openUniversalStore()
         }
 
         // Task Scheduler Buttons
         findViewById<Button>(R.id.btn_schedule_task).setOnClickListener {
+            feedbackManager.triggerClick(it)
             showScheduleTaskDialog()
         }
 
         findViewById<Button>(R.id.btn_view_scheduled).setOnClickListener {
+            feedbackManager.triggerClick(it)
             viewScheduledTasks()
         }
 
         // AI Agent Button
         findViewById<ImageButton>(R.id.ai_agent_btn).setOnClickListener {
+            feedbackManager.triggerClick(it)
             activateAIAgent()
         }
     }
@@ -102,10 +170,12 @@ class MainActivity : AppCompatActivity() {
      * تحديث عرض الإحصائيات
      */
     private fun updateStatsDisplay(stats: ResourceMonitor.SystemStats) {
-        findViewById<TextView>(R.id.cpu_text).text = "CPU: ${stats.cpuUsage}%"
-        findViewById<TextView>(R.id.net_text).text = "NET: ↑${stats.uploadSpeed} ↓${stats.downloadSpeed}"
-        findViewById<TextView>(R.id.storage_text).text = "STOR: ${stats.storageUsed}GB Used"
-        findViewById<TextView>(R.id.power_text).text = "PWR: ${stats.powerUsage}W (${stats.batteryRemaining}h rem)"
+        if (currentUiMode != UIMode.MOBILE) return
+
+        findViewById<TextView>(R.id.cpu_text)?.text = "CPU: ${stats.cpuUsage}%"
+        findViewById<TextView>(R.id.net_text)?.text = "NET: ↑${stats.uploadSpeed} ↓${stats.downloadSpeed}"
+        findViewById<TextView>(R.id.storage_text)?.text = "STOR: ${stats.storageUsed}GB Used"
+        findViewById<TextView>(R.id.power_text)?.text = "PWR: ${stats.powerUsage}W (${stats.batteryRemaining}h rem)"
 
         // تحديث حالة القائد الأعلى (DeepSeek-R1 P2P)
         updateSupremeStatus()
@@ -116,7 +186,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun updateSupremeStatus() {
         // في التطبيق الفعلي، سيتم جلب هذه البيانات من /api/v2/supreme/status
-        findViewById<TextView>(R.id.supreme_status_text).text = "R1-P2P: Online (1000 nodes)"
+        findViewById<TextView>(R.id.supreme_status_text)?.text = "R1-P2P: Online (1000 nodes)"
     }
 
     /**
@@ -148,12 +218,59 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * تفعيل وكيل AI
+     * تفعيل وكيل AI وتحويل الواجهة لوضع عائم
      */
     private fun activateAIAgent() {
         lifecycleScope.launch {
             aiAgentService.startAgent()
+            setUIMode(UIMode.FLOATING)
         }
+    }
+
+    /**
+     * تغيير وضع الواجهة (Console, Desktop, Floating)
+     */
+    private fun setUIMode(mode: UIMode) {
+        if (currentUiMode == mode) return
+
+        currentUiMode = mode
+        feedbackManager.triggerSuccess()
+
+        when (mode) {
+            UIMode.CONSOLE -> transformToConsole()
+            UIMode.DESKTOP -> transformToDesktop()
+            UIMode.FLOATING -> transformToFloating()
+            UIMode.MOBILE -> transformToMobile()
+        }
+        showSmartNotification("UI Router", "Switching to ${mode.name} mode", NotificationType.SYSTEM)
+    }
+
+    private fun transformToConsole() {
+        setContentView(R.layout.layout_console_controls)
+        findViewById<Button>(R.id.btn_exit_console).setOnClickListener {
+            feedbackManager.triggerClick(it)
+            setUIMode(UIMode.MOBILE)
+        }
+    }
+
+    private fun transformToDesktop() {
+        setContentView(R.layout.layout_mini_desktop_shell)
+        findViewById<ImageButton>(R.id.start_btn).setOnClickListener {
+            feedbackManager.triggerClick(it)
+            setUIMode(UIMode.MOBILE)
+        }
+    }
+
+    private fun transformToFloating() {
+        // في وضع Floating، نبقى في الواجهة الحالية ولكن نظهر عناصر عائمة
+        showSmartNotification("Floating", "Floating Widgets Enabled", NotificationType.AI)
+    }
+
+    private fun transformToMobile() {
+        setContentView(R.layout.activity_main)
+        setupUI()
+        setupGestureDetection()
+        // إعادة تهيئة عرض الإحصائيات إذا لزم الأمر
     }
 
     /**

@@ -11,6 +11,7 @@ import uvicorn
 from projects.aoi_system.main_aoi import AOISystem
 from projects.aoi_system.live_agent.live_executor import LiveAgentExecutor
 from projects.aoi_system.live_agent.websocket_manager import WebSocketManager
+from projects.aoi_system.layer8_interface.adaptive_ui import AdaptiveUIManager
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("AOI-Unified-Server")
@@ -23,6 +24,7 @@ class UnifiedServer:
     def __init__(self):
         self.app = FastAPI(title="AOI Unified Control System")
         self.aoi = AOISystem()
+        self.ui_manager = AdaptiveUIManager()
 
         # التنفيذ المباشر (Ultimate Feature)
         self.ws_manager = WebSocketManager()
@@ -133,6 +135,21 @@ class UnifiedServer:
         @self.app.post("/api/app/approve")
         async def approve_mission_results(task_id: str):
             return await self.aoi.control.approve_task(task_id)
+
+        # --- مسارات الواجهة التكيفية (Adaptive UI) ---
+        @self.app.get("/api/ui/layout")
+        async def get_ui_layout():
+            return self.ui_manager.get_mode_layout_specs()
+
+        @self.app.post("/api/ui/route")
+        async def route_ui(task_type: str, app_name: str = None):
+            app_info = {"name": app_name, "category": "Gaming"} if "game" in task_type else {}
+            return await self.ui_manager.route_ui_by_task(task_type, app_info)
+
+        @self.app.post("/api/ui/switch")
+        async def switch_ui_mode(mode: str):
+            success = self.ui_manager.set_custom_mode(mode)
+            return {"success": success, "new_mode": self.ui_manager.current_mode.value}
 
         # دمج مسارات الـ AI Agent القديم
         @self.app.post("/api/predict")
