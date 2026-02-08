@@ -163,6 +163,30 @@ class MainActivity : AppCompatActivity() {
         // TODO: عرض قائمة المهام في RecyclerView
     }
 
+    /**
+     * تفعيل نظام Llama السحابي
+     */
+    private fun activateLlamaCloud() {
+        lifecycleScope.launch {
+            // محاكاة تسجيل الدخول والتهيئة
+            aiAgentService.executeCommand("init_llama_cloud: user@aidepin.app")
+        }
+    }
+
+    /**
+     * التبديل بين شبكات البلوكشين
+     */
+    private fun showBlockchainSwitcher() {
+        // TODO: عرض قائمة الشبكات (BTC, ETH, SOL)
+    }
+
+    /**
+     * فتح الشبكة الاجتماعية
+     */
+    private fun openSocialPlatform() {
+        // TODO: الانتقال لـ SocialFragment
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         resourceMonitor.stopMonitoring()

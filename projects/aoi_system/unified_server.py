@@ -83,6 +83,23 @@ class UnifiedServer:
         async def video_montage(req: dict):
             return await self.aoi.expanded_capabilities.execute_video_montage_full(req)
 
+        # --- مسارات التطور النهائي V2 ---
+        @self.app.post("/api/v2/llama/init")
+        async def init_llama_cloud(data: dict):
+            return await self.aoi.llama_cloud.initialize_on_login(data)
+
+        @self.app.post("/api/v2/social/post")
+        async def create_social_post(content: str, user_did: str, p_type: str = "post"):
+            return await self.aoi.social.create_post(user_did, content, p_type)
+
+        @self.app.get("/api/v2/social/feed")
+        async def get_social_feed(user_did: str):
+            return await self.aoi.social.get_feed(user_did)
+
+        @self.app.post("/api/v2/blockchain/switch")
+        async def switch_blockchain(network: str):
+            return await self.aoi.blockchain.switch_network(network)
+
         # دمج مسارات الـ AI Agent القديم
         @self.app.post("/api/predict")
         async def predict_motion(data: dict):

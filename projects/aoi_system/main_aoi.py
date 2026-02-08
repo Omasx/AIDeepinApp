@@ -20,6 +20,10 @@ from projects.aoi_system.layer2_queue.scheduler import AOIScheduler
 # استيراد المكونات المتطورة لـ AGI
 from projects.aoi_system.agi_core.quantum_cloud_core import QuantumCloudCore
 from projects.aoi_system.agi_core.capabilities_expanded import ExpandedCapabilities
+from projects.aoi_system.llama_cloud.dual_llama_system import DualLlamaAGISystem
+from projects.aoi_system.social_network.social_platform import DePINSocialPlatform
+from projects.aoi_system.blockchain.blockchain_switcher import MultiBlockchainSystem
+from projects.aoi_system.performance.scalability_engine import ScalabilityEngine
 
 # استيراد المكونات المتخصصة من المشاريع الأخرى لتوحيد النظام
 try:
@@ -55,6 +59,10 @@ class AOISystem:
         # المكونات المتطورة لـ AGI (Ultimate Integration)
         self.quantum_cloud = QuantumCloudCore()
         self.expanded_capabilities = ExpandedCapabilities()
+        self.llama_cloud = DualLlamaAGISystem(user_email="user@aidepin.app")
+        self.social = DePINSocialPlatform()
+        self.blockchain = MultiBlockchainSystem(user_email="user@aidepin.app")
+        self.scaler = ScalabilityEngine()
 
         # المكونات المتكاملة (Unified Components)
         self.predictor = QuantumMotionPredictor() if 'QuantumMotionPredictor' in globals() else None
