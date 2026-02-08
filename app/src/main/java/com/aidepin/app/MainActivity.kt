@@ -106,6 +106,17 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.net_text).text = "NET: ↑${stats.uploadSpeed} ↓${stats.downloadSpeed}"
         findViewById<TextView>(R.id.storage_text).text = "STOR: ${stats.storageUsed}GB Used"
         findViewById<TextView>(R.id.power_text).text = "PWR: ${stats.powerUsage}W (${stats.batteryRemaining}h rem)"
+
+        // تحديث حالة القائد الأعلى (DeepSeek-R1 P2P)
+        updateSupremeStatus()
+    }
+
+    /**
+     * تحديث حالة شبكة DeepSeek-R1 P2P
+     */
+    private fun updateSupremeStatus() {
+        // في التطبيق الفعلي، سيتم جلب هذه البيانات من /api/v2/supreme/status
+        findViewById<TextView>(R.id.supreme_status_text).text = "R1-P2P: Online (1000 nodes)"
     }
 
     /**

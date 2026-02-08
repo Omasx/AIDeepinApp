@@ -100,6 +100,17 @@ class UnifiedServer:
         async def switch_blockchain(network: str):
             return await self.aoi.blockchain.switch_network(network)
 
+        # --- مسارات DeepSeek-R1 و Supreme Commander ---
+        @self.app.get("/api/v2/supreme/status")
+        async def get_supreme_status():
+            return self.aoi.brain.supreme_commander.get_cluster_status()
+
+        @self.app.post("/api/v2/supreme/execute")
+        async def execute_supreme_goal(goal: str):
+            # تشغيل في الخلفية لتجنب الـ Timeout
+            asyncio.create_task(self.aoi.brain.supreme_commander.execute_supreme_goal(goal))
+            return {"status": "Supreme Command Issued", "goal": goal}
+
         # --- مسارات المتجر العالمي ووكيل الـ GUI ---
         @self.app.get("/api/store/list")
         async def list_stores():

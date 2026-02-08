@@ -122,6 +122,30 @@
                     android:textColor="@color/primary"
                     android:textSize="12sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="SUPREME"
+                    android:src="@drawable/ic_ai_agent"
+                    android:tint="#FFD700" />
+
+                <TextView
+                    android:id="@+id/supreme_status_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R1-P2P: Online (1000 nodes)"
+                    android:textColor="#FFD700"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 

@@ -3,6 +3,7 @@ import asyncio
 from typing import List, Dict, Any
 from ..swarm.router import APIRouter, APIKey
 from ..agi_core.superintelligent_agent import SuperIntelligentAgent
+from ..agi_core.supreme_controller import SupremeControlNode
 
 logger = logging.getLogger("AOI-Layer0-Brain")
 
@@ -19,13 +20,22 @@ class CoreBrain:
         # دمج الوكيل الفائق الذكاء (AGI Upgrade)
         self.super_agent = SuperIntelligentAgent()
 
-        logger.info(f"🧠 Brain Layer initialized with {self.model_name} and SuperIntelligentAgent")
+        # دمج عقدة التحكم العليا (Supreme Commander)
+        self.supreme_commander = SupremeControlNode(user_email="commander@aidepin.app")
+
+        logger.info(f"🧠 Brain Layer initialized with {self.model_name}, AGI Agent, and Supreme Commander")
 
     async def reason(self, prompt: str, context: Dict[str, Any] = None) -> str:
         """
         تحليل الموقف وإعطاء قرار (تفكير فقط).
         """
         logger.info(f"🤔 Reasoning on: {prompt[:50]}...")
+
+        # إذا كانت المهمة معقدة جداً، نلجأ للقائد الأعلى (DeepSeek-R1 P2P)
+        if context and context.get("extreme_reasoning"):
+            logger.info("🔱 Delegating to Supreme Control Node (DeepSeek-R1 P2P)")
+            result = await self.supreme_commander.execute_supreme_goal(prompt)
+            return result["strategy"]
 
         # استخدام الـ Swarm Router لتوزيع الحمل
         return await self.router.call_llm(prompt)
