@@ -74,8 +74,17 @@
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:background="#1A1A1A"
-            android:orientation="horizontal">
-            <!-- Navigation Items -->
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_nav_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="💬 Chat"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="#FFFFFF"/>
+
         </LinearLayout>
 
     </RelativeLayout>

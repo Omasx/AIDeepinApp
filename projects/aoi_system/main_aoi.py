@@ -38,6 +38,11 @@ from projects.aoi_system.advanced.quantum.quantum_ai import QuantumEnhancedAI
 from projects.aoi_system.advanced.neural.bci_interface import NeuralInterface
 from projects.aoi_system.advanced.cloud_brain.scaler import SmartResourceAllocator
 
+# استيراد ميزات الشات بوت والأمن السيبراني
+from projects.aoi_system.advanced.chatbot.chatbot import IntelligentChatbot
+from projects.aoi_system.advanced.research.researcher import HyperResearchEngine
+from projects.aoi_system.advanced.cybersecurity.hacker import EthicalHackerAgent
+
 # استيراد المكونات المتخصصة من المشاريع الأخرى لتوحيد النظام
 try:
     from projects.ai_agent.backend.quantum_prediction.motion_predictor import QuantumMotionPredictor
@@ -89,6 +94,11 @@ class AOISystem:
         self.quantum_ai = QuantumEnhancedAI(self.zero_cpu.allocated_resources)
         self.neural = NeuralInterface()
         self.smart_allocator = SmartResourceAllocator()
+
+        # الميزات الجديدة (Chat, Research, Security)
+        self.chatbot = IntelligentChatbot(self.brain)
+        self.researcher = HyperResearchEngine(self.brain)
+        self.hacker = EthicalHackerAgent(self.zero_cpu.allocated_resources)
 
         # المكونات المتكاملة (Unified Components)
         self.predictor = QuantumMotionPredictor() if 'QuantumMotionPredictor' in globals() else None

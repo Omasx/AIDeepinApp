@@ -189,6 +189,23 @@ class UnifiedServer:
         async def connect_neural(device: str = "emotiv"):
             return await self.aoi.neural.connect_device(device)
 
+        # --- مسارات الشات بوت والبحث والأمن ---
+        @self.app.post("/api/chat")
+        async def chat_interaction(message: str, user_id: str = "default_user"):
+            return await self.aoi.chatbot.chat(message, user_id)
+
+        @self.app.post("/api/chat/agent/activate")
+        async def activate_chat_agent(approved: bool, user_id: str = "default_user"):
+            return await self.aoi.chatbot.activate_agent_mode(approved, user_id)
+
+        @self.app.post("/api/research/hyper")
+        async def hyper_research(query: str, depth: str = "deep", agents: int = 1000):
+            return await self.aoi.researcher.hyper_search(query, depth, agents)
+
+        @self.app.post("/api/security/scan")
+        async def security_scan(target: str, approved: bool = False):
+            return await self.aoi.hacker.execute_security_scan(target, user_approved=approved)
+
         # دمج مسارات الـ AI Agent القديم
         @self.app.post("/api/predict")
         async def predict_motion(data: dict):
