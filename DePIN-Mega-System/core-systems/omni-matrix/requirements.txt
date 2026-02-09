@@ -1,0 +1,46 @@
+# Omni-Matrix Core Dependencies
+# Zero-Cost Decentralized Cloud Computing Platform
+
+# Async HTTP
+aiohttp>=3.8.0
+aiofiles>=22.0.0
+
+# Cryptography
+cryptography>=41.0.0
+pycryptodome>=3.18.0
+
+# Networking
+python-socketio>=5.8.0
+websockets>=11.0.0
+dnslib>=0.9.23
+
+# Data Processing
+numpy>=1.24.0
+msgpack>=1.0.5
+
+# Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0.0
+click>=8.1.0
+rich>=13.4.0
+tqdm>=4.65.0
+
+# Monitoring
+psutil>=5.9.0
+prometheus-client>=0.17.0
+
+# Android/Termux (optional)
+# termux-api (installed via pkg)
+
+# Development (optional)
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+black>=23.7.0
+mypy>=1.5.0
+
+# Note: For Android/Termux deployment:
+# 1. Install Termux from F-Droid
+# 2. pkg update && pkg upgrade
+# 3. pkg install python git
+# 4. pkg install termux-api (for device integration)
+# 5. pip install -r requirements.txt

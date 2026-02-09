@@ -1,0 +1,177 @@
+{
+  "networks": {
+    "akash": {
+      "enabled": true,
+      "priority": 1,
+      "free_tier": true,
+      "api_key": "${AKASH_API_KEY}",
+      "endpoint": "https://api.akashnet.io"
+    },
+    "render": {
+      "enabled": true,
+      "priority": 2,
+      "free_tier": true,
+      "api_key": "${RENDER_API_KEY}",
+      "endpoint": "https://api.rendernetwork.com"
+    },
+    "golem": {
+      "enabled": true,
+      "priority": 3,
+      "free_tier": true,
+      "api_key": "${GOLEM_API_KEY}",
+      "endpoint": "https://api.golem.network",
+      "testnet": true
+    },
+    "iexec": {
+      "enabled": true,
+      "priority": 4,
+      "free_tier": true,
+      "api_key": "${IEXEC_API_KEY}",
+      "endpoint": "https://api.iex.ec"
+    },
+    "flux": {
+      "enabled": true,
+      "priority": 5,
+      "free_tier": true,
+      "api_key": "${FLUX_API_KEY}",
+      "endpoint": "https://api.runonflux.io"
+    },
+    "filecoin": {
+      "enabled": true,
+      "priority": 1,
+      "free_tier": true,
+      "api_key": "${FILECOIN_API_KEY}",
+      "endpoint": "https://api.node.glif.io",
+      "use_testnet": true
+    },
+    "storj": {
+      "enabled": true,
+      "priority": 2,
+      "free_tier": true,
+      "api_key": "${STORJ_API_KEY}",
+      "endpoint": "https://api.storj.io"
+    },
+    "ipfs": {
+      "enabled": true,
+      "priority": 3,
+      "free_tier": true,
+      "gateways": [
+        "https://ipfs.io",
+        "https://gateway.ipfs.io",
+        "https://cloudflare-ipfs.com",
+        "https://gateway.pinata.cloud",
+        "https://ipfs.infura.io",
+        "https://dweb.link"
+      ]
+    },
+    "bittorrent": {
+      "enabled": true,
+      "priority": 4,
+      "free_tier": true,
+      "trackers": [
+        "udp://tracker.openbittorrent.com:80",
+        "udp://tracker.opentrackr.org:1337",
+        "udp://tracker.coppersurfer.tk:6969"
+      ]
+    }
+  },
+  "ai": {
+    "deepseek_r1_endpoint": "https://api.deepseek.ai/v1",
+    "deepseek_api_key": "${DEEPSEEK_API_KEY}",
+    "max_concurrent_agents": 10000,
+    "inference_timeout": 30,
+    "fallback_models": [
+      "gpt-4",
+      "claude-3-opus",
+      "llama-3-70b"
+    ],
+    "agent_specializations": [
+      "general",
+      "coding",
+      "analysis",
+      "creative",
+      "gaming_assistant",
+      "system_optimizer",
+      "error_fixer",
+      "security"
+    ]
+  },
+  "storage": {
+    "total_capacity_tb": 50,
+    "redundancy_factor": 3,
+    "shard_size_mb": 64,
+    "erasure_coding": true,
+    "data_shards": 4,
+    "parity_shards": 2,
+    "deduplication": true,
+    "compression": true,
+    "backends": ["ipfs", "filecoin", "storj", "bittorrent"]
+  },
+  "latency": {
+    "target_gaming_latency_ms": 30,
+    "max_acceptable_latency_ms": 100,
+    "edge_caching_enabled": true,
+    "udp_protocol": true,
+    "frame_buffer_size": 3,
+    "adaptive_bitrate": true,
+    "frame_prediction": true,
+    "supported_games": [
+      "fortnite",
+      "apex_legends",
+      "valorant",
+      "cs2",
+      "league_of_legends"
+    ]
+  },
+  "android": {
+    "heartbeat_interval": 30,
+    "background_mode": true,
+    "opportunistic_scanning": true,
+    "min_battery_percent": 15,
+    "throttle_on_battery": true,
+    "wifi_only_sync": false,
+    "max_background_tasks": 5,
+    "notification_enabled": true
+  },
+  "self_healing": {
+    "enabled": true,
+    "error_threshold": 5,
+    "auto_fix": true,
+    "github_search": true,
+    "stackoverflow_search": true,
+    "max_fix_attempts": 3,
+    "rollback_on_failure": true,
+    "predictive_healing": true
+  },
+  "mesh": {
+    "local_scan_enabled": true,
+    "scan_interval_seconds": 300,
+    "bluetooth_scan": true,
+    "wifi_direct_scan": true,
+    "max_local_nodes": 50,
+    "relay_enabled": true
+  },
+  "security": {
+    "encryption": "AES-256-GCM",
+    "key_exchange": "X25519",
+    "signature": "Ed25519",
+    "p2p_encryption": true,
+    "data_encryption_at_rest": true,
+    "anonymization": true,
+    "gdpr_compliant": true
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "/mnt/okcomputer/output/omni-matrix/logs/omni-matrix.log",
+    "max_size_mb": 100,
+    "backup_count": 5,
+    "console_output": true
+  },
+  "performance": {
+    "max_workers": 32,
+    "thread_pool_size": 64,
+    "connection_pool_size": 100,
+    "request_timeout": 30,
+    "keep_alive_interval": 30
+  }
+}
