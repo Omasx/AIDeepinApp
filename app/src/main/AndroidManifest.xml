@@ -50,6 +50,11 @@
             android:exported="false"
             android:theme="@style/Theme.AIDeepinApp" />
 
+        <activity
+            android:name=".depin.DePINControlPanel"
+            android:exported="false"
+            android:theme="@style/Theme.AIDeepinApp" />
+
     </application>
 
 </manifest>

@@ -43,6 +43,12 @@ from projects.aoi_system.advanced.chatbot.chatbot import IntelligentChatbot
 from projects.aoi_system.advanced.research.researcher import HyperResearchEngine
 from projects.aoi_system.advanced.cybersecurity.hacker import EthicalHackerAgent
 
+# استيراد منسق DePIN الفائق
+from projects.aoi_system.advanced.depin.multi_chain_aggregator import DePINSuperOrchestrator
+from projects.aoi_system.advanced.depin.auto_failover_engine import AutoFailoverEngine
+from projects.aoi_system.advanced.depin.resource_contribution_system import ContributionManager
+from projects.aoi_system.advanced.depin.intelligent_router import IntelligentTaskRouter
+
 # استيراد المكونات المتخصصة من المشاريع الأخرى لتوحيد النظام
 try:
     from projects.ai_agent.backend.quantum_prediction.motion_predictor import QuantumMotionPredictor
@@ -99,6 +105,12 @@ class AOISystem:
         self.chatbot = IntelligentChatbot(self.brain)
         self.researcher = HyperResearchEngine(self.brain)
         self.hacker = EthicalHackerAgent(self.zero_cpu.allocated_resources)
+
+        # ميزات DePIN Orchestrator
+        self.depin_orchestrator = DePINSuperOrchestrator()
+        self.depin_failover = AutoFailoverEngine(self.depin_orchestrator)
+        self.depin_contrib = ContributionManager()
+        self.depin_router = IntelligentTaskRouter(self.depin_orchestrator)
 
         # المكونات المتكاملة (Unified Components)
         self.predictor = QuantumMotionPredictor() if 'QuantumMotionPredictor' in globals() else None

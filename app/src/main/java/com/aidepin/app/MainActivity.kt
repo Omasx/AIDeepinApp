@@ -12,6 +12,7 @@ import com.aidepin.app.ui.InteractiveFeedbackManager
 import com.aidepin.app.ui.ResourceMonitor
 import com.aidepin.app.clients.*
 import com.aidepin.app.chatbot.ChatbotAgentActivity
+import com.aidepin.app.depin.DePINControlPanel
 import android.content.Intent
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay

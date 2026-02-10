@@ -206,6 +206,23 @@ class UnifiedServer:
         async def security_scan(target: str, approved: bool = False):
             return await self.aoi.hacker.execute_security_scan(target, user_approved=approved)
 
+        # --- مسارات DePIN Orchestrator ---
+        @self.app.post("/api/depin/init")
+        async def init_depin():
+            return await self.aoi.depin_orchestrator.initialize()
+
+        @self.app.get("/api/depin/providers")
+        async def get_depin_providers():
+            return self.aoi.depin_orchestrator.get_providers_status()
+
+        @self.app.post("/api/depin/contribution/start")
+        async def start_depin_contrib(provider: str):
+            return await self.aoi.depin_contrib.start_contribution(provider, user_approved=True)
+
+        @self.app.get("/api/depin/stats")
+        async def get_depin_stats():
+            return self.aoi.depin_contrib.get_stats()
+
         # دمج مسارات الـ AI Agent القديم
         @self.app.post("/api/predict")
         async def predict_motion(data: dict):
