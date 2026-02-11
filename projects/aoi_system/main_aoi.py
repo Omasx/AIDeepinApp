@@ -49,6 +49,11 @@ from projects.aoi_system.advanced.depin.auto_failover_engine import AutoFailover
 from projects.aoi_system.advanced.depin.resource_contribution_system import ContributionManager
 from projects.aoi_system.advanced.depin.intelligent_router import IntelligentTaskRouter
 
+# استيراد التكاملات الحقيقية
+from projects.aoi_system.advanced.real_integrations.depin_integrations import RealDePINIntegrations, RealWorkloadExecutor
+from projects.aoi_system.advanced.real_integrations.libraries_manager import RealLibrariesManager, LocalAIEngine
+from projects.aoi_system.advanced.real_integrations.cloud_os_core import CloudVMOrchestrator
+
 # استيراد المكونات المتخصصة من المشاريع الأخرى لتوحيد النظام
 try:
     from projects.ai_agent.backend.quantum_prediction.motion_predictor import QuantumMotionPredictor
@@ -111,6 +116,13 @@ class AOISystem:
         self.depin_failover = AutoFailoverEngine(self.depin_orchestrator)
         self.depin_contrib = ContributionManager()
         self.depin_router = IntelligentTaskRouter(self.depin_orchestrator)
+
+        # ميزات التكامل الحقيقي (Real Integrations)
+        self.real_depin = RealDePINIntegrations()
+        self.real_executor = RealWorkloadExecutor(self.real_depin)
+        self.real_libs = RealLibrariesManager()
+        self.local_ai = LocalAIEngine(self.real_libs)
+        self.cloud_os_vm = CloudVMOrchestrator()
 
         # المكونات المتكاملة (Unified Components)
         self.predictor = QuantumMotionPredictor() if 'QuantumMotionPredictor' in globals() else None
