@@ -1,0 +1,1 @@
+Scavenger Result: {'status': 'Linked', 'nodes_count': 7, 'aggregated_bandwidth': '700 Mbps', 'mesh_status': 'Operational'}

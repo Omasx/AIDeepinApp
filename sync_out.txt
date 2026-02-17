@@ -1,0 +1,5 @@
+Node 2 State: {'mission_status': {'value': 'Active', 'ts': 1771352932.5455778, 'node': 'phone_1'}}
+Traceback (most recent call last):
+  File "/app/projects/phantom_grid/ai/hive_mind.py", line 39, in <module>
+    from projects.phantom_grid.core.scavenger import ScavengerEngine
+ModuleNotFoundError: No module named 'projects'

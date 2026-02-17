@@ -51,6 +51,7 @@ from projects.aoi_system.advanced.depin.intelligent_router import IntelligentTas
 
 # استيراد التكاملات الحقيقية
 from projects.aoi_system.advanced.real_integrations.depin_integrations import RealDePINIntegrations, RealWorkloadExecutor
+from projects.phantom_grid.bridge.ipc_api import PhantomBridge
 from projects.aoi_system.advanced.real_integrations.libraries_manager import RealLibrariesManager, LocalAIEngine
 from projects.aoi_system.advanced.real_integrations.cloud_os_core import CloudVMOrchestrator
 
@@ -124,6 +125,9 @@ class AOISystem:
         self.local_ai = LocalAIEngine(self.real_libs)
         self.cloud_os_vm = CloudVMOrchestrator()
 
+        # جسر Phantom Grid v4.0
+        self.phantom = PhantomBridge()
+
         # المكونات المتكاملة (Unified Components)
         self.predictor = QuantumMotionPredictor() if 'QuantumMotionPredictor' in globals() else None
         self.platform = UniversalPlatformManager() if 'UniversalPlatformManager' in globals() else None
@@ -133,6 +137,10 @@ class AOISystem:
 
     async def initialize(self):
         logger.info("🎬 Initializing Unified AOI System...")
+
+        # تهيئة Phantom Grid
+        await self.phantom.initialize_all()
+
         # تشغيل الطبقات المستقلة (Queue, Monitor, Scheduler)
         self.queue.start()
         self.scheduler.start()

@@ -1,0 +1,19 @@
+2026-02-17 18:43:07,161 - AOI-Swarm-Router - INFO - 🔌 APIRouter initialized with 1 keys.
+2026-02-17 18:43:07,184 - AOI-Layer0-Brain - INFO - 🧠 Brain Layer initialized with Llama 3.5, AGI Agent, and Supreme Commander
+2026-02-17 18:43:07,186 - AOI-Layer5-Memory - INFO - 💾 Memory System Layer initialized.
+2026-02-17 18:43:07.187 | INFO     | projects.aoi_system.layer6_healing.healing:__init__:22 - 🔧 Self-Healing & Error Analysis Layer initialized with Self-Maintenance.
+2026-02-17 18:43:07,187 - AOI-Layer1-Control - INFO - 🎮 Planning Control Layer initialized.
+2026-02-17 18:43:07,189 - AOI-Layer2-Queue - INFO - 📅 Task Queue & Scheduler Layer initialized.
+2026-02-17 18:43:07,189 - AOI-Swarm-Executor - INFO - 🛠️ CodeExecutor ready in sandbox: projects/aoi_system/sandbox
+2026-02-17 18:43:07,190 - AOI-Layer3-Execution - INFO - 🚀 Execution Engine Layer initialized with Swarm CodeExecutor.
+2026-02-17 18:43:07,190 - AOI-Layer4-Vision - INFO - 👁️ Vision & Media Layer initialized.
+2026-02-17 18:43:07,190 - AOI-Layer7-Monitor - INFO - 🛡️ System Monitor & Watchdog Layer initialized.
+2026-02-17 18:43:07,236 - AOI-Layer8-Interface - INFO - 📱 Control Interface Layer (FastAPI) initialized.
+2026-02-17 18:43:07,236 - AOI-Swarm-Controller - INFO - 🐝 Swarm Controller ready. Max Concurrency: 1000
+2026-02-17 18:43:07,236 - AOI-Layer2-Scheduler - INFO - ⏰ AOI Scheduler initialized.
+2026-02-17 18:43:07,237 - projects.aoi_system.universal_store.store_registry - INFO - 🏬 Universal Store Registry initialized with 90 stores.
+2026-02-17 18:43:07,237 - AOI-AppBridge - INFO - 🌉 Universal App Bridge initialized.
+2026-02-17 18:43:07,237 - AOI-GUIAgent - INFO - 🖱️ GUI Agent for application control initialized.
+Testing AOISystem initialization with Phantom Grid...
+AOISystem instantiated successfully.
+PhantomBridge detected in AOISystem.
