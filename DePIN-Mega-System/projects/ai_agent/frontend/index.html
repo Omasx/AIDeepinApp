@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Advanced - منصة الوكيل الذكي المتقدمة</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>🤖 AI Agent</h1>
+                <p>منصة الوكيل الذكي</p>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" data-page="dashboard">
+                    <span class="icon">📊</span>
+                    <span>لوحة التحكم</span>
+                </a>
+                <a href="#projects" class="nav-item" data-page="projects">
+                    <span class="icon">📁</span>
+                    <span>المشاريع</span>
+                </a>
+                <a href="#tasks" class="nav-item" data-page="tasks">
+                    <span class="icon">✅</span>
+                    <span>المهام</span>
+                </a>
+                <a href="#nodes" class="nav-item" data-page="nodes">
+                    <span class="icon">🌐</span>
+                    <span>العقد</span>
+                </a>
+                <a href="#settings" class="nav-item" data-page="settings">
+                    <span class="icon">⚙️</span>
+                    <span>الإعدادات</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="page-title">لوحة التحكم</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="text" placeholder="ابحث عن مشروع...">
+                        <button>🔍</button>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="User">
+                        <span>المستخدم</span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Dashboard Page -->
+            <section id="dashboard" class="page active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <h3>المشاريع النشطة</h3>
+                            <p class="stat-number" id="active-projects">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <h3>المهام المكتملة</h3>
+                            <p class="stat-number" id="completed-tasks">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🌐</div>
+                        <div class="stat-content">
+                            <h3>العقد النشطة</h3>
+                            <p class="stat-number" id="active-nodes">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-content">
+                            <h3>الأداء</h3>
+                            <p class="stat-number" id="performance">92%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Command Input -->
+                <div class="command-section">
+                    <h3>🚀 أرسل أمراً جديداً</h3>
+                    <div class="command-input-group">
+                        <textarea id="command-input" placeholder="مثال: أنشئ موقع ويب بـ React..."></textarea>
+                        <button id="send-command" class="btn-primary">إرسال الأمر</button>
+                    </div>
+                </div>
+                
+                <!-- Recent Projects -->
+                <div class="recent-projects">
+                    <h3>المشاريع الأخيرة</h3>
+                    <div id="projects-list" class="projects-grid">
+                        <!-- سيتم ملؤها بـ JavaScript -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Projects Page -->
+            <section id="projects" class="page">
+                <div class="page-header">
+                    <h2>المشاريع</h2>
+                    <button class="btn-primary">+ مشروع جديد</button>
+                </div>
+                
+                <div class="projects-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>اسم المشروع</th>
+                                <th>الحالة</th>
+                                <th>التقدم</th>
+                                <th>تاريخ الإنشاء</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projects-tbody">
+                            <!-- سيتم ملؤها بـ JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- Tasks Page -->
+            <section id="tasks" class="page">
+                <div class="page-header">
+                    <h2>المهام</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">الكل</button>
+                        <button class="filter-btn" data-filter="pending">قيد الانتظار</button>
+                        <button class="filter-btn" data-filter="running">قيد التنفيذ</button>
+                        <button class="filter-btn" data-filter="completed">مكتملة</button>
+                    </div>
+                </div>
+                
+                <div id="tasks-list" class="tasks-list">
+                    <!-- سيتم ملؤها بـ JavaScript -->
+                </div>
+            </section>
+            
+            <!-- Nodes Page -->
+            <section id="nodes" class="page">
+                <div class="page-header">
+                    <h2>العقد</h2>
+                    <button class="btn-primary">+ إضافة عقدة</button>
+                </div>
+                
+                <div class="nodes-grid" id="nodes-grid">
+                    <!-- سيتم ملؤها بـ JavaScript -->
+                </div>
+            </section>
+            
+            <!-- Settings Page -->
+            <section id="settings" class="page">
+                <div class="page-header">
+                    <h2>الإعدادات</h2>
+                </div>
+                
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label>API Key</label>
+                        <input type="password" placeholder="أدخل مفتاح API">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>GitHub Token</label>
+                        <input type="password" placeholder="أدخل توكن GitHub">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>OpenAI API Key</label>
+                        <input type="password" placeholder="أدخل مفتاح OpenAI">
+                    </div>
+                    
+                    <button class="btn-primary">حفظ الإعدادات</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Modal for Project Details -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">تفاصيل المشروع</h2>
+            <div id="modal-body">
+                <!-- سيتم ملؤها بـ JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+# requirements.txt - جميع المكاتب المطلوبة
+
+# Web Framework
+aiohttp==3.9.1
+asyncio==3.4.3
+
+# AI & ML
+numpy==1.24.3
+scipy==1.11.4
+scikit-learn==1.3.2
+
+# Quantum Simulation (Optional)
+qiskit==0.43.2
+
+# API Clients
+requests==2.31.0
+openai==1.3.8
+anthropic==0.7.10
+
+# GitHub Integration
+PyGithub==2.1.1
+
+# Blockchain & Web3
+solders==0.18.1
+solana==0.30.1
+
+# Storage & Database
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+redis==5.0.1
+
+# IPFS
+ipfshttpclient==0.8.0
+
+# Utilities
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+python-multipart==0.0.6
+aiofiles==23.2.1
+
+# Logging & Monitoring
+python-json-logger==2.0.7
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+
+# Development
+black==23.12.0
+flake8==6.1.0
+mypy==1.7.1

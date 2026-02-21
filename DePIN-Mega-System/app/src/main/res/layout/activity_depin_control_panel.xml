@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0A0A">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🌐 DePIN Super-Orchestrator"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Stats Overview -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/statsCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="#1C1C1E"
+            android:layout_marginBottom="16dp">
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:padding="16dp">
+                <TextView android:text="Credits Earned:" android:textColor="#8E8E93"/>
+                <TextView android:id="@+id/creditsBalanceText" android:text="0.00" android:textColor="#FFD700" android:gravity="end" android:layout_gravity="fill_horizontal"/>
+                <TextView android:text="Success Rate:" android:textColor="#8E8E93" android:layout_marginTop="8dp"/>
+                <TextView android:id="@+id/successRateText" android:text="100%" android:textColor="#00FF00" android:gravity="end" android:layout_gravity="fill_horizontal" android:layout_marginTop="8dp"/>
+            </GridLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Contribution Section -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/contributionCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="#1C1C1E"
+            android:layout_marginBottom="16dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:text="Resource Contribution" android:textColor="#FFFFFF" android:textStyle="bold"/>
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/contributionSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
+                <Button
+                    android:id="@+id/btnStartContribution"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Optimize &amp; Contribute"
+                    android:layout_marginTop="8dp"
+                    style="@style/Widget.Material3.Button.TonalButton"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Providers List -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available Networks"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="8dp"/>
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/providersRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

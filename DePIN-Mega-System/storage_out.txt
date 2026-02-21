@@ -1,0 +1,2 @@
+{'success': True, 'mount_point': '/mnt/phantom_storage', 'total_capacity': '2048 GB'}
+Generated shards: ['shard_e6406bd1d1e7fbeff0cb75ee36b72efe.dat', 'shard_964fb17141fc359e4e111b39dc813ba4.dat', 'shard_97df85986e6e202a961d7dffc7a6e8ec.dat']

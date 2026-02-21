@@ -1,0 +1,3 @@
+Can run: True
+Report: {'battery': '80%', 'charging': True, 'idle': True, 'impact': '< 1.5% (Resource Neutral)'}
+Masked data sample: b'GET /index.html HTTP/1.1\r\nHost: google.com\r\n\r\nSecr'...

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة AOI الموحدة - Unified AOI Panel</title>
+    <link rel="stylesheet" href="agent_panel.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- خلفية ثلاثية الأبعاد -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- القائمة الجانبية -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>🚀 AOI MEGA OS</h2>
+            <button id="toggle-sidebar" class="btn-icon">☰</button>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="#overview" class="menu-item active">📊 <span>نظرة عامة</span></a>
+            <a href="#cloud-brain" class="menu-item">☁️ <span>العقل السحابي</span></a>
+            <a href="#gaming" class="menu-item">🎮 <span>الألعاب AAA</span></a>
+            <a href="#creative" class="menu-item">🎬 <span>الإنتاج الإبداعي</span></a>
+            <a href="#automation" class="menu-item">🤖 <span>سير العمل الذاتي</span></a>
+            <a href="#universal" class="menu-item">🌐 <span>التطبيقات العالمية</span></a>
+            <a href="#quantum" class="menu-item">⚛️ <span>الذكاء الكمي</span></a>
+            <a href="#settings" class="menu-item">⚙️ <span>الإعدادات</span></a>
+        </nav>
+    </aside>
+    
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <div class="command-bar">
+            <div class="command-input-container">
+                <button id="voice-btn" class="btn-voice">🎤</button>
+                <input type="text" id="command-input" class="command-input" placeholder="اكتب أمرك هنا... (مثال: تشغيل Cyberpunk في السحابة)">
+                <button id="send-command-btn" class="btn-send">تنفيذ →</button>
+            </div>
+        </div>
+        
+        <div id="status-panel" class="status-panel">
+            <div class="stat-card">
+                <span class="stat-label">CPU المحلي</span>
+                <span id="local-cpu-val" class="stat-value">0%</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">رصيد Credits</span>
+                <span id="credits-val" class="stat-value">1250.5</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">ساعات مجانية</span>
+                <span id="free-hours-val" class="stat-value">999+</span>
+            </div>
+        </div>
+
+        <section id="mega-features" class="section">
+            <h2 class="section-title">الميزات الضخمة</h2>
+            <div class="features-grid">
+                <div class="feature-card" onclick="initCloud()">
+                    <h3>☁️ تفعيل السحابة</h3>
+                    <p>بدء Zero Local Processing</p>
+                </div>
+                <div class="feature-card" onclick="launchGame()">
+                    <h3>🎮 تشغيل لعبة</h3>
+                    <p>Fortnite, GTA V, etc.</p>
+                </div>
+                <div class="feature-card" onclick="launchCreative()">
+                    <h3>🎬 Premiere Pro</h3>
+                    <p>مونتاج سحابي فائق</p>
+                </div>
+                <div class="feature-card" onclick="startQuantum()">
+                    <h3>⚛️ تحسين كمي</h3>
+                    <p>Super Resolution AI</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="active-projects" class="section">
+            <h2 class="section-title">المهام النشطة</h2>
+            <div id="projects-grid" class="projects-grid"></div>
+        </section>
+    </main>
+
+    <script src="3d_interface.js"></script>
+    <script src="agent_panel.js"></script>
+</body>
+</html>
